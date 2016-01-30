@@ -36,7 +36,7 @@ public class controleurJ1 : MonoBehaviour {
             pieceCourante.orient(false);
         }
 
-        if (Input.GetKeyDown("Backspace"))
+        if (Input.GetKeyDown("backspace"))
             speedDelay = 15;
         else
             speedDelay = 60;

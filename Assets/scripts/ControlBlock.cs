@@ -11,17 +11,21 @@ public class ControlBlock : MonoBehaviour {
     public GameObject tripleBlock2;
     public int orientation;
     private Model model;
-    System.Random rnd = new System.Random();
+    System.Random rnd;
     
 
-    public ControlBlock(Model model)
+    public void setModel(Model model)
     {
         this.model = model;
     }
 
+
+
     // Use this for initialization
     void Start()
     {
+
+        rnd = new System.Random();
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
         switch (randomType)
