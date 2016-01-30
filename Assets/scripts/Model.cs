@@ -17,8 +17,11 @@ public class Model : MonoBehaviour {
     public float y0 = 3.64f;
     public float j2x0 = 1.09f;
     public int modifRotation = 0;
-    public bool[,] blocksFixes;
+    public bool[,] blocksFixesj1;
+    public bool[,] blocksFixesj2;
     public bool[,] symbole;
+    public bool[,] matchingj1;
+    public bool[,] matchingj2;
 
     private ControlBlock[] poolBlock;
 
@@ -39,6 +42,25 @@ public class Model : MonoBehaviour {
 
         spawnJ1(0);
         spawnJ2(0);
+    }
+
+    void genereSymbole(int i)
+    {
+        switch (i)
+        {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+        }
     }
 
     void spawnJ1(int i)
