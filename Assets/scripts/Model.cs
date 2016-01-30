@@ -17,6 +17,8 @@ public class Model : MonoBehaviour {
     public float y0 = 3.64f;
     public float j2x0 = 1.09f;
     public int modifRotation = 0;
+    public bool[,] blocksFixes;
+    public bool[,] symbole;
 
     private ControlBlock[] poolBlock;
 
