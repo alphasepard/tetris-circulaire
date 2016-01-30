@@ -48,9 +48,40 @@ public class Model : MonoBehaviour {
     {
         switch (i)
         {
+            for(int j = 0; j < 12; j++)
+            {
+                for (int k = 0; k < 12; k++)
+                {
+                    symbole[j, k] = true;
+                }
+            }
             case 1:
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
+                symbole[4, 6] = false;
 
-                break;
+        break;
             case 2:
 
                 break;
