@@ -5,7 +5,7 @@ using System;
 public class ControlBlock : MonoBehaviour {
 
     public int x, y;
-    public GameObject type;
+    public GameObject currentBlock;
     public GameObject doubleBlock;
     public GameObject tripleBlock1;
     public GameObject tripleBlock2;
@@ -20,18 +20,18 @@ public class ControlBlock : MonoBehaviour {
         switch (randomType)
         {
             case 1:
-                type = doubleBlock;
+                currentBlock = doubleBlock;
                 break;
             case 2:
-                type = tripleBlock1;
+                currentBlock = tripleBlock1;
                 break;
             case 3:
-                type = tripleBlock2;
+                currentBlock = tripleBlock2;
                 break;
         }
     }
 
-    void orient(bool horaire)
+   public void orient(bool horaire)
     {
         if (horaire)
         {
@@ -44,7 +44,7 @@ public class ControlBlock : MonoBehaviour {
     }
 
 
-    void move(int x, int y)
+    public void move(int x, int y)
     {
 
     }

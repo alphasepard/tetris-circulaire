@@ -19,14 +19,22 @@ public class controleurJ1 : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("Q")) { }
-            //move left if possible
-        else if (Input.GetKeyDown("D")) { }
-            //move right if possible
-        else if (Input.GetKeyDown("Z")) { }
-            //rotate clockwise
-        else if (Input.GetKeyDown("S")) { }
-        //rotate anti-clockwise
+        if (Input.GetKeyDown("Q"))
+        {
+            pieceCourante.move(1, 0);
+        }
+        else if (Input.GetKeyDown("D"))
+        {
+            pieceCourante.move(-1, 0);
+        }
+        else if (Input.GetKeyDown("Z"))
+        {
+            pieceCourante.orient(true);
+        }
+        else if (Input.GetKeyDown("S"))
+        {
+            pieceCourante.orient(false);
+        }
 
         if (Input.GetKeyDown("Backspace"))
             speedDelay = 15;
