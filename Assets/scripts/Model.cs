@@ -122,6 +122,7 @@ public class Model : MonoBehaviour {
             j1.n++;
             j1.pieceCourante = poolBlock[j1.n];
             spawnJ1(j1.n);
+            j1.toucherLeFond = false;
         }
 
         if (j2.toucherLeFond)
@@ -129,24 +130,25 @@ public class Model : MonoBehaviour {
             j2.n++;
             j2.pieceCourante = poolBlock[j2.n];
             spawnJ2(j2.n);
+            j2.toucherLeFond = false;
         }
     } 
     public bool down(ControlBlock cb, int dw)
     {
-        return true;
+        return (cb.y+dw < 15);
     }
 
-    public bool left(ControlBlock cb, int dl)
+    public bool left(ControlBlock cb, int lw)
     {
-        return true;
+        return (cb.x+lw < 10);
     }
 
-    public bool right(ControlBlock cb, int dr)
+    public bool right(ControlBlock cb, int rw)
     {
-        return true;
+        return (cb.x + rw > 0);
     }
 
-    public bool up(ControlBlock cb, int du)
+    public bool up(ControlBlock cb, int uw)
     {
         return true;
     }

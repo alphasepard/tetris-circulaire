@@ -12,6 +12,7 @@ public class controleurJ2 : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        n = 0;
         decompte = 60;
         speedDelay = 60;
 	}
@@ -24,11 +25,11 @@ public class controleurJ2 : MonoBehaviour {
             decompte = speedDelay;
             toucherLeFond = pieceCourante.move(0, 1, 2);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             pieceCourante.move(1, 0, 2);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             pieceCourante.move(-1, 0, 2);
         }
@@ -41,7 +42,7 @@ public class controleurJ2 : MonoBehaviour {
             pieceCourante.orient(false, 2);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.RightControl))
             speedDelay = 15;
         else
             speedDelay = 60;

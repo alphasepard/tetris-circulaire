@@ -71,7 +71,7 @@ public class ControlBlock {
 
     public bool espaceDispo(int x, int y, int sens)
     {
-        /*bool down, left, right, up;
+        bool down, left, right, up;
         int leftWide, rightWide, downWide, upWide;
         leftWide = 0;
         rightWide = 0;
@@ -135,14 +135,13 @@ public class ControlBlock {
         up = model.up(this, upWide);
         if (x > 0)
             return (true);
-        else if (x > 0)
+        else if (x < 0)
             return (true);
         else if (y > 0)
-            return (true);
+            return (down && left && right);
         else if (sens != 0)
             return (true);
-        else return true;*/
-        return true;
+        else return false;
     }
 
 }

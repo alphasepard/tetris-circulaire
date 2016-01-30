@@ -13,6 +13,7 @@ public class controleurJ1 : MonoBehaviour {
     // Use this for initialization
     void Start () {
         n = 0;
+        decompte = 60;
         speedDelay = 60;
     }
 
@@ -24,11 +25,11 @@ public class controleurJ1 : MonoBehaviour {
             decompte = speedDelay;
             toucherLeFond = pieceCourante.move(0, 1, 1);
         }
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("d"))
         {
             pieceCourante.move(1, 0, 1);
         }
-        else if (Input.GetKeyDown("d"))
+        else if (Input.GetKeyDown("q"))
         {
             pieceCourante.move(-1, 0, 1);
         }
