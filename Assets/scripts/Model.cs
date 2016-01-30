@@ -25,7 +25,6 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
         poolBlock = new ControlBlock[1000];
 
         for (int i = 0; i < 999; i++)

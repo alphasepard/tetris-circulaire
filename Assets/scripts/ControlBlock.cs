@@ -6,9 +6,6 @@ public class ControlBlock : MonoBehaviour {
 
     public int x, y;
     public GameObject currentBlock;
-    public GameObject doubleBlock;
-    public GameObject tripleBlock1;
-    public GameObject tripleBlock2;
     public int orientation;
     private Model model;
     System.Random rnd;
@@ -24,23 +21,19 @@ public class ControlBlock : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        doubleBlock = model.doubleBlock;
-        tripleBlock1 = model.tripleBlock1;
-        tripleBlock2 = model.tripleBlock2;
-
         rnd = new System.Random();
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
         switch (randomType)
         {
             case 1:
-                currentBlock = doubleBlock;
+                currentBlock = model.doubleBlock;
                 break;
             case 2:
-                currentBlock = tripleBlock1;
+                currentBlock = model.tripleBlock1;
                 break;
             case 3:
-                currentBlock = tripleBlock2;
+                currentBlock = model.tripleBlock2;
                 break;
         }
         this.x = 5;
@@ -81,13 +74,13 @@ public class ControlBlock : MonoBehaviour {
 
     public bool espaceDispo(int x, int y, int sens)
     {
-        bool down, left, right, up;
+        /*bool down, left, right, up;
         int leftWide, rightWide, downWide, upWide;
         leftWide = 0;
         rightWide = 0;
         downWide = 0;
         upWide = 0;
-        if (currentBlock.name.Equals(tripleBlock1.name))
+        if (currentBlock.name.Equals(model.tripleBlock1.name))
         {
             switch ((orientation+sens)%4)
             {
@@ -105,7 +98,7 @@ public class ControlBlock : MonoBehaviour {
                     break;
             }
         }
-        else if (currentBlock.name.Equals(tripleBlock2.name))
+        else if (currentBlock.name.Equals(model.tripleBlock2.name))
         {
             switch ((orientation + sens) % 4)
             {
@@ -121,7 +114,7 @@ public class ControlBlock : MonoBehaviour {
                     break;
             }
         }
-        else if (currentBlock.name.Equals(doubleBlock.name))
+        else if (currentBlock.name.Equals(model.doubleBlock.name))
         {
             switch ((orientation + sens) % 4)
             {
@@ -151,7 +144,8 @@ public class ControlBlock : MonoBehaviour {
             return (true);
         else if (sens != 0)
             return (true);
-        else return true;
+        else return true;*/
+        return true;
     }
 
 	// Update is called once per frame
