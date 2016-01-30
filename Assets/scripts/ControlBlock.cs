@@ -60,7 +60,6 @@ public class ControlBlock {
 
     public bool move(int x, int y, int j)
     {
-        Debug.Log(this.GetHashCode() + "         " + j);
         if (espaceDispo(x, y, 0)) {
             this.x = this.x + x;
             this.y = this.y + y;
