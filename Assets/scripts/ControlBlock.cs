@@ -43,26 +43,6 @@ public class ControlBlock : MonoBehaviour {
         }
     }
 
-    int getRedX()
-    {
-        if(tripleBlock1.name.Equals(type.name){
-            if(orientation == 0 || orientation == 2)
-            {
-
-            }
-            else if(orientation == 1)
-            {
-                return x + 1;
-            }
-            else
-            {
-                return x - 1;
-            }
-        }
-        return x;
-    }
-
-
 
     void move(int x, int y)
     {
