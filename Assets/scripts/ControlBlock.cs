@@ -43,6 +43,10 @@ public class ControlBlock : MonoBehaviour {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c3e911c36d44eb691740f6d1a4faa35113d97bb
     void move(int x, int y)
     {
 
