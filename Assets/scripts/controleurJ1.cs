@@ -5,6 +5,7 @@ public class controleurJ1 : MonoBehaviour {
 
     public int speedDelay;
     public int n;
+    public int decompte;
     public ControlBlock pieceCourante;
 
     // Use this for initialization
@@ -19,6 +20,12 @@ public class controleurJ1 : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        decompte--;
+        if (decompte == 0)
+        {
+            pieceCourante.move(0, 1);
+            decompte = speedDelay;
+        }
         if (Input.GetKeyDown("q"))
         {
             pieceCourante.move(1, 0);

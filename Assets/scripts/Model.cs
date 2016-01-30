@@ -11,21 +11,6 @@ public class Model : MonoBehaviour {
 
     private ControlBlock[] poolBlock;
 
-    public bool down(ControlBlock cb, int dw)
-    {
-        return true;
-    }
-
-    public bool left(ControlBlock cb, int dl)
-    {
-        return true;
-    }
-
-    public bool right(ControlBlock cb, int dr)
-    {
-        return true;
-    }
-
     // Use this for initialization
     void Start () {
         poolBlock = new ControlBlock[1000];
@@ -48,4 +33,25 @@ public class Model : MonoBehaviour {
 	void Update () {
 	    
 	}
+
+    public bool down(ControlBlock cb, int dw)
+    {
+        return true;
+    }
+
+    public bool left(ControlBlock cb, int dl)
+    {
+        return true;
+    }
+
+    public bool right(ControlBlock cb, int dr)
+    {
+        return true;
+    }
+
+    public bool up(ControlBlock cb, int du)
+    {
+        return true;
+    }
+
 }
