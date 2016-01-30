@@ -5,7 +5,7 @@ using System;
 public class ControlBlock : MonoBehaviour {
 
     public int x, y;
-    public GameObject type;
+    public GameObject currentBlock;
     public GameObject doubleBlock;
     public GameObject tripleBlock1;
     public GameObject tripleBlock2;
@@ -20,15 +20,17 @@ public class ControlBlock : MonoBehaviour {
         switch (randomType)
         {
             case 1:
-                type = doubleBlock;
+                currentBlock = doubleBlock;
                 break;
             case 2:
-                type = tripleBlock1;
+                currentBlock = tripleBlock1;
                 break;
             case 3:
-                type = tripleBlock2;
+                currentBlock = tripleBlock2;
                 break;
         }
+        this.x = 5;
+        this.y = 0;
     }
 
     void orient(bool horaire)
@@ -43,13 +45,11 @@ public class ControlBlock : MonoBehaviour {
         }
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0c3e911c36d44eb691740f6d1a4faa35113d97bb
     void move(int x, int y)
     {
-
+        this.x = x;
+        this.y = y;
     }
 
 	// Update is called once per frame
