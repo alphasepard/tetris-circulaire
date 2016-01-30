@@ -9,15 +9,15 @@ public class ControlBlock {
     public GameObject currentBlock;
     public int orientation;
     public Model model;
-    System.Random rnd;
+    static System.Random rnd = new System.Random();
 
     // Use this for initialization
     public ControlBlock(Model m)
     {
         model = m;
-        rnd = new System.Random();
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
+        //Debug.Log(randomType);
         switch (randomType)
         {
             case 1:
@@ -43,9 +43,11 @@ public class ControlBlock {
             if (horaire)
             {
                 orientation = (orientation + 1) % 4;
+                model.modifRotation = 1;
             }
             else {
                 orientation = (orientation - 1) % 4;
+                model.modifRotation = -1;
             }
             notify(j);
         }
@@ -58,6 +60,7 @@ public class ControlBlock {
 
     public bool move(int x, int y, int j)
     {
+        Debug.Log(this.GetHashCode() + "         " + j);
         if (espaceDispo(x, y, 0)) {
             this.x = this.x + x;
             this.y = this.y + y;

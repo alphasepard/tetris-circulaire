@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class Model : MonoBehaviour {
 
@@ -15,7 +16,7 @@ public class Model : MonoBehaviour {
     public float j1x0 = -11.84f;
     public float y0 = 3.64f;
     public float j2x0 = 1.09f;
-
+    public int modifRotation = 0;
 
     private ControlBlock[] poolBlock;
 
@@ -25,7 +26,7 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        poolBlock = new ControlBlock[1000];
+        poolBlock = new ControlBlock[10];
 
         for (int i = 0; i < 10; i++)
         {
@@ -62,9 +63,12 @@ public class Model : MonoBehaviour {
             x = j2x0 + 6 * moveUnit;
             y = y0;
         }
+
         if (cb.currentBlock.name.Equals(doubleBlock.name))
         {
             newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
+
+
         }
         else if(cb.currentBlock.name.Equals(tripleBlock1.name))
         {
@@ -98,16 +102,17 @@ public class Model : MonoBehaviour {
             y = j1.pieceCourante.y;
             o = j1.pieceCourante.orientation;
             j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 - y * moveUnit, 0);
-            j1.pieceCourante.currentBlock.transform.Rotate(0, 0, 0/*o * 90*/);
+            j1.pieceCourante.currentBlock.transform.Rotate(0, 0, modifRotation * 90);
         }
         else
         {
             x = j2.pieceCourante.x;
             y = j2.pieceCourante.y;
             o = j2.pieceCourante.orientation;
-            j1.pieceCourante.currentBlock.transform.position = new Vector3(j2x0 + x * moveUnit, y0 - y * moveUnit, 0);
-            j2.pieceCourante.currentBlock.transform.Rotate(0, 0, 0/*o * 90*/);
+            j2.pieceCourante.currentBlock.transform.position = new Vector3(j2x0 + x * moveUnit, y0 - y * moveUnit, 0);
+            j2.pieceCourante.currentBlock.transform.Rotate(0, 0, modifRotation * 90);
         }
+        modifRotation = 0;
     }
 
     // Update is called once per frame
@@ -123,7 +128,7 @@ public class Model : MonoBehaviour {
         {
             j2.n++;
             j2.pieceCourante = poolBlock[j2.n];
-            spawnJ1(j2.n);
+            spawnJ2(j2.n);
         }
     } 
     public bool down(ControlBlock cb, int dw)
