@@ -98,7 +98,7 @@ public class Model : MonoBehaviour {
             y = j1.pieceCourante.y;
             o = j1.pieceCourante.orientation;
             j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 - y * moveUnit, 0);
-            j1.pieceCourante.currentBlock.transform.Rotate(0, 0, o * 90);
+            j1.pieceCourante.currentBlock.transform.Rotate(0, 0, 0/*o * 90*/);
         }
         else
         {
@@ -106,7 +106,7 @@ public class Model : MonoBehaviour {
             y = j2.pieceCourante.y;
             o = j2.pieceCourante.orientation;
             j1.pieceCourante.currentBlock.transform.position = new Vector3(j2x0 + x * moveUnit, y0 - y * moveUnit, 0);
-            j2.pieceCourante.currentBlock.transform.Rotate(0, 0, o * 90);
+            j2.pieceCourante.currentBlock.transform.Rotate(0, 0, 0/*o * 90*/);
         }
     }
 
