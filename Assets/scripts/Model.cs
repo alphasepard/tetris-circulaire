@@ -46,50 +46,128 @@ public class Model : MonoBehaviour {
 
     void genereSymbole(int i)
     {
+        for (int j = 0; j < 12; j++)
+        {
+            for (int k = 0; k < 12; k++)
+            {
+                symbole[j, k] = true;
+            }
+        }
         switch (i)
         {
-            for(int j = 0; j < 12; j++)
-            {
-                for (int k = 0; k < 12; k++)
-                {
-                    symbole[j, k] = true;
-                }
-            }
             case 1:
                 symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-                symbole[4, 6] = false;
-
-        break;
+                symbole[5, 5] = false;
+                symbole[6, 4] = false;
+                symbole[7, 4] = false;
+                symbole[6, 6] = false;
+                symbole[7, 6] = false;
+                symbole[7, 7] = false;
+                symbole[8, 7] = false;
+                symbole[8, 9] = false;
+                symbole[7, 9] = false;
+                symbole[9, 9] = false;
+                symbole[9, 8] = false;
+                symbole[10, 8] = false;
+                symbole[11, 8] = false;
+                symbole[12, 8] = false;
+                symbole[12, 7] = false;
+                symbole[13, 7] = false;
+                symbole[13, 6] = false;
+                symbole[13, 5] = false;
+                symbole[13, 4] = false;
+                symbole[13, 3] = false;
+                symbole[12, 4] = false;
+                symbole[11, 4] = false;
+                symbole[14, 3] = false;
+                break;
             case 2:
-
+                symbole[3, 6] = false;
+                symbole[4, 5] = false;
+                symbole[5, 4] = false;
+                symbole[6, 4] = false;
+                symbole[7, 4] = false;
+                symbole[8, 5] = false;
+                symbole[8, 7] = false;
+                symbole[8, 8] = false;
+                symbole[9, 8] = false;
+                symbole[10, 8] = false;
+                symbole[9, 6] = false;
+                symbole[10, 6] = false;
+                symbole[11, 7] = false;
+                symbole[12, 7] = false;
+                symbole[13, 8] = false;
+                symbole[14, 9] = false;
+                symbole[12, 6] = false;
+                symbole[13, 5] = false;
+                symbole[14, 4] = false;
+                symbole[13, 3] = false;
+                symbole[13, 2] = false;
+                symbole[12, 1] = false;
                 break;
             case 3:
-
+                symbole[5, 4] = false;
+                symbole[6, 5] = false;
+                symbole[7, 6] = false;
+                symbole[7, 7] = false;
+                symbole[6, 8] = false;
+                symbole[7, 9] = false;
+                symbole[8, 9] = false;
+                symbole[9, 8] = false;
+                symbole[10, 9] = false;
+                symbole[11, 8] = false;
+                symbole[12, 7] = false;
+                symbole[13, 6] = false;
+                symbole[14, 5] = false;
+                symbole[10, 7] = false;
+                symbole[10, 6] = false;
+                symbole[10, 5] = false;
+                symbole[10, 4] = false;
+                symbole[10, 3] = false;
+                symbole[11, 5] = false;
+                symbole[12, 4] = false;
+                symbole[13, 3] = false;
+                symbole[14, 2] = false;
+                symbole[14, 3] = false;
+                symbole[14, 4] = false;
                 break;
             case 4:
-
+                symbole[5, 2] = false;
+                symbole[5, 3] = false;
+                symbole[5, 4] = false;
+                symbole[5, 5] = false;
+                symbole[5, 6] = false;
+                symbole[5, 7] = false;
+                symbole[5, 8] = false;
+                symbole[5, 9] = false;
+                symbole[6, 9] = false;
+                symbole[7, 8] = false;
+                symbole[8, 7] = false;
+                symbole[9, 6] = false;
+                symbole[6, 10] = false;
+                symbole[7, 9] = false;
+                symbole[8, 8] = false;
+                symbole[9, 7] = false;
+                symbole[9, 2] = false;
+                symbole[9, 3] = false;
+                symbole[9, 4] = false;
+                symbole[10, 3] = false;
+                symbole[10, 5] = false;
+                symbole[11, 5] = false;
+                symbole[11, 4] = false;
+                symbole[12, 3] = false;
+                symbole[13, 2] = false;
+                symbole[14, 1] = false;
+                symbole[14, 2] = false;
+                symbole[14, 3] = false;
+                symbole[14, 4] = false;
+                symbole[14, 5] = false;
+                symbole[14, 6] = false;
+                symbole[12, 6] = false;
+                symbole[13, 7] = false;
+                symbole[13, 8] = false;
+                symbole[14, 8] = false;
+                symbole[14, 9] = false;
                 break;
         }
     }
