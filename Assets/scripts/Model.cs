@@ -13,10 +13,25 @@ public class Model : MonoBehaviour {
 
     int interval = 1;
     float nextTime = 0;
+    public bool down(ControlBlock cb, int dw)
+    {
+        return true;
+    }
+
+    public bool left(ControlBlock cb, int dl)
+    {
+        return true;
+    }
+
+    public bool right(ControlBlock cb, int dr)
+    {
+        return true;
+    }
 
     // Use this for initialization
     void Start () {
         poolBlock = new ControlBlock[1000];
+
         for(int i = 0; i < 999; i++)
         {
             poolBlock[i] = gameObject.AddComponent<ControlBlock>();
@@ -24,6 +39,13 @@ public class Model : MonoBehaviour {
 
         j1 = gameObject.AddComponent<controleurJ1>();
         j2 = gameObject.AddComponent<controleurJ2>();
+
+        for (int i = 0; i<999; i++)
+        {
+            poolBlock[i] = new ControlBlock(this);
+        }
+        j1 = new controleurJ1();
+        j2 = new controleurJ2();
         start_partie();
 	}
 
