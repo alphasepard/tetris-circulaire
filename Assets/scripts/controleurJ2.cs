@@ -18,19 +18,19 @@ public class controleurJ2 : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("Q"))
+        if (Input.GetKeyDown("q"))
         {
             pieceCourante.move(1, 0);
         }
-        else if (Input.GetKeyDown("D"))
+        else if (Input.GetKeyDown("d"))
         {
             pieceCourante.move(-1, 0);
         }
-        else if (Input.GetKeyDown("Z"))
+        else if (Input.GetKeyDown("z"))
         {
             pieceCourante.orient(true);
         }
-        else if (Input.GetKeyDown("S"))
+        else if (Input.GetKeyDown("s"))
         {
             pieceCourante.orient(false);
         }

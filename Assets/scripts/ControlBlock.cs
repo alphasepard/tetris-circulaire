@@ -10,7 +10,14 @@ public class ControlBlock : MonoBehaviour {
     public GameObject tripleBlock1;
     public GameObject tripleBlock2;
     public int orientation;
+    private Model model;
     System.Random rnd = new System.Random();
+    
+
+    public ControlBlock(Model model)
+    {
+        this.model = model;
+    }
 
     // Use this for initialization
     void Start()
@@ -46,8 +53,16 @@ public class ControlBlock : MonoBehaviour {
 
     public void move(int x, int y)
     {
-
+        bool down, left, right;
+        int leftWide, rightWide, downWide;
+        leftWide = 0;
+        rightWide = 0;
+        downWide = 0;
+        down = model.down(this, downWide);
+        left = model.left(this, leftWide);
+        right = model.right(this, rightWide);
     }
+
 
 	// Update is called once per frame
 	void Update () {

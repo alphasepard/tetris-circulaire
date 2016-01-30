@@ -11,9 +11,28 @@ public class Model : MonoBehaviour {
 
     private ControlBlock[] poolBlock;
 
+    public bool down(ControlBlock cb, int dw)
+    {
+        return true;
+    }
+
+    public bool left(ControlBlock cb, int dl)
+    {
+        return true;
+    }
+
+    public bool right(ControlBlock cb, int dr)
+    {
+        return true;
+    }
+
     // Use this for initialization
     void Start () {
         poolBlock = new ControlBlock[1000];
+        for (int i = 0; i<999; i++)
+        {
+            poolBlock[i] = new ControlBlock(this);
+        }
         j1 = new controleurJ1();
         j2 = new controleurJ2();
         start_partie();
