@@ -24,6 +24,9 @@ public class ControlBlock : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        doubleBlock = model.doubleBlock;
+        tripleBlock1 = model.tripleBlock1;
+        tripleBlock2 = model.tripleBlock2;
 
         rnd = new System.Random();
         orientation = rnd.Next(4);
@@ -44,33 +47,112 @@ public class ControlBlock : MonoBehaviour {
         this.y = 0;
     }
 
-   public void orient(bool horaire)
+   public void orient(bool horaire, int j)
     {
-        if (horaire)
-        {
-            orientation = (orientation + 1) % 4;
-        }
-        else
-        {
-            orientation = (orientation - 1) % 4;
+        int sens = 0;
+        if (horaire) sens = 1;
+        else sens = -1;
+        if (espaceDispo(0, 0, sens)){
+            if (horaire)
+            {
+                orientation = (orientation + 1) % 4;
+            }
+            else {
+                orientation = (orientation - 1) % 4;
+            }
+            notify(j);
         }
     }
 
-
-    public void move(int x, int y)
+    public void notify(int j)
     {
-        this.x = x;
-        this.y = y;
-        bool down, left, right;
-        int leftWide, rightWide, downWide;
+        model.update_move(j);
+    }
+
+    public bool move(int x, int y, int j)
+    {
+        if (espaceDispo(x, y, 0)) {
+            this.x += x;
+            this.y += y;
+            notify(j);
+        }
+        return (!espaceDispo(x, y, 0) && y > 0);
+    }
+
+    public bool espaceDispo(int x, int y, int sens)
+    {
+        bool down, left, right, up;
+        int leftWide, rightWide, downWide, upWide;
         leftWide = 0;
         rightWide = 0;
         downWide = 0;
+        upWide = 0;
+        if (currentBlock.name.Equals(tripleBlock1.name))
+        {
+            switch ((orientation+sens)%4)
+            {
+                case 0:
+                    downWide = 2;
+                    break;
+                case 1:
+                    leftWide = 2;
+                    break;
+                case 2:
+                    upWide = 2;
+                    break;
+                case 3:
+                    rightWide = 2;
+                    break;
+            }
+        }
+        else if (currentBlock.name.Equals(tripleBlock2.name))
+        {
+            switch ((orientation + sens) % 4)
+            {
+                case 0:
+                case 2:
+                    upWide = 1;
+                    downWide = 1;
+                    break;
+                case 1:
+                case 3:
+                    upWide = 1;
+                    downWide = 1;
+                    break;
+            }
+        }
+        else if (currentBlock.name.Equals(doubleBlock.name))
+        {
+            switch ((orientation + sens) % 4)
+            {
+                case 0:
+                    downWide = 1;
+                    break;
+                case 1:
+                    leftWide = 1;
+                    break;
+                case 2:
+                    upWide = 1;
+                    break;
+                case 3:
+                    rightWide = 1;
+                    break;
+            }
+        }
         down = model.down(this, downWide);
         left = model.left(this, leftWide);
         right = model.right(this, rightWide);
+        up = model.up(this, upWide);
+        if (x > 0)
+            return (true);
+        else if (x > 0)
+            return (true);
+        else if (y > 0)
+            return (true);
+        else if (sens != 0)
+            return (true);
+        else return true;
     }
-
 
 	// Update is called once per frame
 	void Update () {
