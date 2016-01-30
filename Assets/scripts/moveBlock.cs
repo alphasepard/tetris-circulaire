@@ -20,6 +20,6 @@ public class moveBlock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+        block.transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
 	}
 }
