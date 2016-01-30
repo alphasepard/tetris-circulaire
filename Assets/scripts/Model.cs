@@ -27,23 +27,32 @@ public class Model : MonoBehaviour {
     {
         poolBlock = new ControlBlock[1000];
 
-        for (int i = 0; i < 999; i++)
+        for (int i = 0; i < 10; i++)
         {
-            poolBlock[i] = gameObject.AddComponent<ControlBlock>();
-            poolBlock[i].setModel(this);
-        }
+            poolBlock[i] = new ControlBlock(this);
 
-        j1 = gameObject.AddComponent<controleurJ1>();
-        j2 = gameObject.AddComponent<controleurJ2>();
+            poolBlock[i].model = this;
+        }
 
         spawnJ1(0);
         spawnJ2(0);
+    }
+
+    void spawnJ1(int i)
+    {
+        spawnPiece(poolBlock[i], 1);
+    }
+
+    void spawnJ2(int i)
+    {
+        spawnPiece(poolBlock[i], 2);
     }
 
     void spawnPiece(ControlBlock cb, int joueur)
     {
         float x = 0.0f, y = 0.0f;
         GameObject newPiece;
+        ControlBlock newControlBlock;
         if (joueur == 1)
         {
             x = j1x0 + 6 * moveUnit;
@@ -53,41 +62,32 @@ public class Model : MonoBehaviour {
             x = j2x0 + 6 * moveUnit;
             y = y0;
         }
-
         if (cb.currentBlock.name.Equals(doubleBlock.name))
         {
-            newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.transform.rotation);
+            newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
         }
         else if(cb.currentBlock.name.Equals(tripleBlock1.name))
         {
-            newPiece = (GameObject)GameObject.Instantiate(tripleBlock1, new Vector3(x, y, 0), cb.transform.rotation);
+            newPiece = (GameObject)GameObject.Instantiate(tripleBlock1, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
         }
         else
         {
-            newPiece = (GameObject)GameObject.Instantiate(tripleBlock2, new Vector3(x, y, 0), cb.transform.rotation);
+            newPiece = (GameObject)GameObject.Instantiate(tripleBlock2, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
         }
         newPiece.transform.Rotate(0, 0, cb.orientation * 90);
+        newControlBlock = new ControlBlock(this);
+        newControlBlock.currentBlock = newPiece;
         if (joueur == 1)
         {
-            j1.pieceCourante.currentBlock = newPiece;
+            j1.pieceCourante = newControlBlock;
+            j1.pieceCourante.model = this;
         }
         else
         {
-            j2.pieceCourante.currentBlock = newPiece;
+            j2.pieceCourante = newControlBlock;
+            j2.pieceCourante.model = this;
         }
     }
-
-    void spawnJ1(int i)
-    {
-
-        spawnPiece(poolBlock[i].GetComponent<ControlBlock>(), 1);
-    }
-
-    void spawnJ2(int i)
-    {
-        spawnPiece(poolBlock[i].GetComponent<ControlBlock>(), 2);
-    }
-
 
     public void update_move(int j)
     {
@@ -97,7 +97,7 @@ public class Model : MonoBehaviour {
             x = j1.pieceCourante.x;
             y = j1.pieceCourante.y;
             o = j1.pieceCourante.orientation;
-            j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 + y * moveUnit, 0);
+            j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 - y * moveUnit, 0);
             j1.pieceCourante.currentBlock.transform.Rotate(0, 0, o * 90);
         }
         else
@@ -105,7 +105,7 @@ public class Model : MonoBehaviour {
             x = j2.pieceCourante.x;
             y = j2.pieceCourante.y;
             o = j2.pieceCourante.orientation;
-            j1.pieceCourante.currentBlock.transform.position = new Vector3(j2x0 + x * moveUnit, y0 + y * moveUnit, 0);
+            j1.pieceCourante.currentBlock.transform.position = new Vector3(j2x0 + x * moveUnit, y0 - y * moveUnit, 0);
             j2.pieceCourante.currentBlock.transform.Rotate(0, 0, o * 90);
         }
     }

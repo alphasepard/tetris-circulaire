@@ -2,25 +2,19 @@
 using System.Collections;
 using System;
 
-public class ControlBlock : MonoBehaviour {
+[RequireComponent(typeof(Model))]
+public class ControlBlock {
 
     public int x, y;
     public GameObject currentBlock;
     public int orientation;
-    private Model model;
+    public Model model;
     System.Random rnd;
-    
-
-    public void setModel(Model model)
-    {
-        this.model = model;
-    }
-
-
 
     // Use this for initialization
-    void Start()
+    public ControlBlock(Model m)
     {
+        model = m;
         rnd = new System.Random();
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
@@ -36,7 +30,7 @@ public class ControlBlock : MonoBehaviour {
                 currentBlock = model.tripleBlock2;
                 break;
         }
-        this.x = 5;
+        this.x = 6;
         this.y = 0;
     }
 
@@ -65,11 +59,11 @@ public class ControlBlock : MonoBehaviour {
     public bool move(int x, int y, int j)
     {
         if (espaceDispo(x, y, 0)) {
-            this.x += x;
-            this.y += y;
+            this.x = this.x + x;
+            this.y = this.y + y;
             notify(j);
         }
-        return (!espaceDispo(x, y, 0) && y > 0);
+        return (!espaceDispo(x, y, 0) & y > 0);
     }
 
     public bool espaceDispo(int x, int y, int sens)
@@ -148,8 +142,4 @@ public class ControlBlock : MonoBehaviour {
         return true;
     }
 
-	// Update is called once per frame
-	void Update () {
-	    
-	}
 }

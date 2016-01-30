@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Model))]
 public class controleurJ1 : MonoBehaviour {
 
     public int speedDelay;
@@ -13,11 +14,6 @@ public class controleurJ1 : MonoBehaviour {
     void Start () {
         n = 0;
         speedDelay = 60;
-        pieceCourante = gameObject.AddComponent<ControlBlock>();
-    }
-
-    public void setPieceCourante(ControlBlock cb) {
-        pieceCourante = cb;
     }
 
     // Update is called once per frame
@@ -27,7 +23,6 @@ public class controleurJ1 : MonoBehaviour {
         {
             decompte = speedDelay;
             toucherLeFond = pieceCourante.move(0, 1, 1);
-            
         }
         if (Input.GetKeyDown("q"))
         {
@@ -46,7 +41,7 @@ public class controleurJ1 : MonoBehaviour {
             pieceCourante.orient(false, 1);
         }
 
-        if (Input.GetKeyDown("backspace"))
+        if (Input.GetKey(KeyCode.Space))
             speedDelay = 15;
         else
             speedDelay = 60;
