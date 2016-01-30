@@ -11,9 +11,21 @@ public class Model : MonoBehaviour {
 
     private ControlBlock[] poolBlock;
 
+    int interval = 1;
+    float nextTime = 0;
+
     // Use this for initialization
     void Start () {
         poolBlock = new ControlBlock[1000];
+
+        for(int i = 0; i < 999; i++)
+        {
+            poolBlock[i] = gameObject.AddComponent<ControlBlock>();
+        }
+
+        j1 = gameObject.AddComponent<controleurJ1>();
+        j2 = gameObject.AddComponent<controleurJ2>();
+
         for (int i = 0; i<999; i++)
         {
             poolBlock[i] = new ControlBlock(this);
@@ -25,8 +37,15 @@ public class Model : MonoBehaviour {
 
     void start_partie()
     {
-        j1.setPieceCourante(poolBlock[0]);
-        j2.setPieceCourante(poolBlock[0]);
+        //while
+        ControlBlock dupliq1;
+        ControlBlock dupliq2;
+        dupliq1 = poolBlock[0];
+        dupliq2 = poolBlock[0];
+        j1.setPieceCourante(dupliq1);
+        j2.setPieceCourante(dupliq2);
+       // j1.pieceCourante.transform.position = new Vector3(-3.97f, 5.95f, 0);
+
     }
 	
 	// Update is called once per frame
@@ -53,5 +72,4 @@ public class Model : MonoBehaviour {
     {
         return true;
     }
-
 }

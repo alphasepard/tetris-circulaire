@@ -36,6 +36,8 @@ public class ControlBlock : MonoBehaviour {
                 currentBlock = tripleBlock2;
                 break;
         }
+        this.x = 5;
+        this.y = 0;
     }
 
    public void orient(bool horaire)
@@ -66,6 +68,8 @@ public class ControlBlock : MonoBehaviour {
     {
         bool down, left, right, up;
         int leftWide, rightWide, downWide, upWide;
+        this.x = x;
+        this.y = y;
         leftWide = 0;
         rightWide = 0;
         downWide = 0;
