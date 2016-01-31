@@ -12,13 +12,15 @@ public class Model : MonoBehaviour {
     public GameObject doubleBlock;
     public GameObject tripleBlock1;
     public GameObject tripleBlock2;
-    public float moveUnit = 0.75f;
+    public float moveUnit = 1f;
     public float j1x0 = -11.84f;
     public float y0 = 3.64f;
     public float j2x0 = 1.09f;
     public int modifRotation = 0;
-    public bool[,] blocksFixes;
-    public bool[,] symbole;
+    public bool[,] blocksFixesj1;
+    public bool[,] symbolej1;
+    public bool[,] blocksFixesj2;
+    public bool[,] symbolej2;
 
     private ControlBlock[] poolBlock;
 
@@ -28,14 +30,26 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        poolBlock = new ControlBlock[10];
+        //doubleBlock.GetComponent<SpriteRenderer>().sprite.pivot = ;
 
-        for (int i = 0; i < 10; i++)
+        poolBlock = new ControlBlock[100];
+
+        for (int i = 0; i < 100; i++)
         {
             poolBlock[i] = new ControlBlock(this);
 
             poolBlock[i].model = this;
         }
+
+        blocksFixesj1 = new bool[12,16];
+        blocksFixesj2 = new bool[12,16];
+
+        for (int i = 0; i < 12; i++)
+            for (int j = 0; j < 16; j++)
+            {
+                blocksFixesj1[i, j] = false;
+                blocksFixesj2[i, j] = false;
+            }
 
         spawnJ1(0);
         spawnJ2(0);
@@ -135,23 +149,37 @@ public class Model : MonoBehaviour {
             j2.toucherLeFond = false;
         }
     } 
-    public bool down(ControlBlock cb, int dw)
+    
+    public bool dep(Point[] piece, char dir, int j)
     {
-        return (cb.y+dw < 15);
-    }
-
-    public bool left(ControlBlock cb, int lw)
-    {
-        return (cb.x+lw < 10);
-    }
-
-    public bool right(ControlBlock cb, int rw)
-    {
-        return (cb.x + rw > 0);
-    }
-
-    public bool up(ControlBlock cb, int uw)
-    {
+        bool[,] tmp = (j == 1) ? blocksFixesj1 : blocksFixesj2;
+        int i = 0;
+        switch (dir)
+        {
+            case 'd':
+                for (i = 0;i<piece.Length; i++)
+                {
+                    if (tmp[piece[i].v2+1,piece[i].v1] == true)
+                        return false;
+                }
+                break;
+            case 'g':
+                for (i = 0; i<piece.Length; i++)
+                {
+                    if (tmp[piece[i].v2-1,piece[i].v1] == true)
+                        return false;
+                }
+                break;
+            case 'b':
+                for (i = 0; i<piece.Length; i++)
+                {
+                    if (piece[i].v1 >= 15)
+                        return false;
+                    if (tmp[piece[i].v2,piece[i].v1+1] == true)
+                        return false;
+                }
+                break;
+        }
         return true;
     }
 }
