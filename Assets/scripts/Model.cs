@@ -21,30 +21,67 @@ public class Model : MonoBehaviour {
     public bool[,] symbolej1;
     public bool[,] blocksFixesj2;
     public bool[,] symbolej2;
-    public bool[,] matchingj1;
-    public bool[,] matchingj2;
 
     private ControlBlock[] poolBlock;
 
     public GameObject runej1, runej2;
+    public GameObject sideRune1j1, sideRune2j1, sideRune3j1, sideRune4j1;
+    public GameObject sideRune1j2, sideRune2j2, sideRune3j2, sideRune4j2;
     public int cmpRJ1 = 0 , cmpRJ2 = 0;
     Sprite runeEau, runeFeu, runeTerre, runeNuit;
+    Sprite runeEauS, runeFeuS, runeTerreS, runeNuitS;
+    Sprite runeEau1VS, runeFeu1VS, runeTerre1VS, runeNuit1VS;
+    Sprite runeEau2VS, runeFeu2VS, runeTerre2VS, runeNuit2VS;
     public Sprite[] runesTab;
+    public Sprite[] sideRunesTabJ1;
+    public Sprite[] sideRunesVTabJ1;
+    public Sprite[] sideRunesTabJ2;
+    public Sprite[] sideRunesVTabJ2;
 
     int interval = 1;
     float nextTime = 0;
+    
 
     // Use this for initialization
     void Start()
     {
-<<<<<<< HEAD
+        runej1.AddComponent<SpriteRenderer>();
+        runej2.AddComponent<SpriteRenderer>();
+        sideRune1j1.AddComponent<SpriteRenderer>();
+        sideRune2j1.AddComponent<SpriteRenderer>();
+        sideRune3j1.AddComponent<SpriteRenderer>();
+        sideRune4j1.AddComponent<SpriteRenderer>();
+        sideRune1j2.AddComponent<SpriteRenderer>();
+        sideRune2j2.AddComponent<SpriteRenderer>();
+        sideRune3j2.AddComponent<SpriteRenderer>();
+        sideRune4j2.AddComponent<SpriteRenderer>();
+
         runeEau = Resources.Load<Sprite>("runeEau");
         runeFeu = Resources.Load<Sprite>("runeFeu");
         runeTerre = Resources.Load<Sprite>("runeTerre");
         runeNuit = Resources.Load<Sprite>("runeNuit");
 
-        //Générer un arrangement aléatoire des 4 dans runesTab
+        runeEauS = Resources.Load<Sprite>("RuneEauS");
+        runeFeuS = Resources.Load<Sprite>("RuneFeuS");
+        runeTerreS = Resources.Load<Sprite>("RuneTerreS");
+        runeNuitS = Resources.Load<Sprite>("RuneNuitS");
+
+        runeEau1VS = Resources.Load<Sprite>("runeEau1VS");
+        runeFeu1VS = Resources.Load<Sprite>("runeFeu1VS");
+        runeTerre1VS = Resources.Load<Sprite>("runeTerre1VS");
+        runeNuit1VS = Resources.Load<Sprite>("runeNuit1VS");
+
+        runeEau2VS = Resources.Load<Sprite>("runeEau2VS");
+        runeFeu2VS = Resources.Load<Sprite>("runeFeu2VS");
+        runeTerre2VS = Resources.Load<Sprite>("runeTerre2VS");
+        runeNuit2VS = Resources.Load<Sprite>("runeNuit2VS");
+
+        //arrangement "aléatoire" des 4 runes dans runesTab
         runesTab = new Sprite[4];
+        sideRunesTabJ1 = new Sprite[4];
+        sideRunesVTabJ1 = new Sprite[4];
+        sideRunesTabJ2 = new Sprite[4];
+        sideRunesVTabJ2 = new Sprite[4];
         System.Random rnd = new System.Random();
         int x = rnd.Next(0, 4);
 
@@ -55,41 +92,116 @@ public class Model : MonoBehaviour {
                 runesTab[1] = runeEau;
                 runesTab[2] = runeFeu;
                 runesTab[3] = runeTerre;
+
+                sideRunesTabJ1[0] = runeNuitS;
+                sideRunesTabJ1[1] = runeEauS;
+                sideRunesTabJ1[2] = runeFeuS;
+                sideRunesTabJ1[3] = runeTerreS;
+                sideRunesVTabJ1[0] = runeNuit1VS;
+                sideRunesVTabJ1[1] = runeEau1VS;
+                sideRunesVTabJ1[2] = runeFeu1VS;
+                sideRunesVTabJ1[3] = runeTerre1VS;
+
+                sideRunesTabJ2[0] = runeNuitS;
+                sideRunesTabJ2[1] = runeEauS;
+                sideRunesTabJ2[2] = runeFeuS;
+                sideRunesTabJ2[3] = runeTerreS;
+                sideRunesVTabJ2[0] = runeNuit2VS;
+                sideRunesVTabJ2[1] = runeEau2VS;
+                sideRunesVTabJ2[2] = runeFeu2VS;
+                sideRunesVTabJ2[3] = runeTerre2VS;
                 break;
             case 1:
                 runesTab[0] = runeEau;
                 runesTab[1] = runeFeu;
                 runesTab[2] = runeNuit;
                 runesTab[3] = runeTerre;
+
+                sideRunesTabJ1[0] = runeEauS;
+                sideRunesTabJ1[1] = runeFeuS;
+                sideRunesTabJ1[2] = runeNuitS;
+                sideRunesTabJ1[3] = runeTerreS;
+                sideRunesVTabJ1[0] = runeEau1VS;
+                sideRunesVTabJ1[1] = runeFeu1VS;
+                sideRunesVTabJ1[2] = runeNuit1VS;
+                sideRunesVTabJ1[3] = runeTerre1VS;
+
+                sideRunesTabJ2[0] = runeEauS;
+                sideRunesTabJ2[1] = runeFeuS;
+                sideRunesTabJ2[2] = runeNuitS;
+                sideRunesTabJ2[3] = runeTerreS;
+                sideRunesVTabJ2[0] = runeEau2VS;
+                sideRunesVTabJ2[1] = runeFeu2VS;
+                sideRunesVTabJ2[2] = runeNuit2VS;
+                sideRunesVTabJ2[3] = runeTerre2VS;
                 break;
             case 2:
                 runesTab[0] = runeTerre;
                 runesTab[1] = runeNuit;
                 runesTab[2] = runeEau;
                 runesTab[3] = runeFeu;
+
+                sideRunesTabJ1[0] = runeTerreS;
+                sideRunesTabJ1[1] = runeNuitS;
+                sideRunesTabJ1[2] = runeEauS;
+                sideRunesTabJ1[3] = runeFeuS;
+                sideRunesVTabJ1[0] = runeTerre1VS;
+                sideRunesVTabJ1[1] = runeNuit1VS;
+                sideRunesVTabJ1[2] = runeEau1VS;
+                sideRunesVTabJ1[3] = runeFeu1VS;
+
+                sideRunesTabJ2[0] = runeTerreS;
+                sideRunesTabJ2[1] = runeNuitS;
+                sideRunesTabJ2[2] = runeEauS;
+                sideRunesTabJ2[3] = runeFeuS;
+                sideRunesVTabJ2[0] = runeTerre2VS;
+                sideRunesVTabJ2[1] = runeNuit2VS;
+                sideRunesVTabJ2[2] = runeEau2VS;
+                sideRunesVTabJ2[3] = runeFeu2VS;
                 break;
             case 3:
                 runesTab[0] = runeFeu;
                 runesTab[1] = runeTerre;
                 runesTab[2] = runeEau;
                 runesTab[3] = runeNuit;
+
+                sideRunesTabJ1[0] = runeFeuS;
+                sideRunesTabJ1[1] = runeTerreS;
+                sideRunesTabJ1[2] = runeEauS;
+                sideRunesTabJ1[3] = runeNuitS;
+                sideRunesVTabJ1[0] = runeFeu1VS;
+                sideRunesVTabJ1[1] = runeTerre1VS;
+                sideRunesVTabJ1[2] = runeEau1VS;
+                sideRunesVTabJ1[3] = runeNuit1VS;
+
+                sideRunesTabJ2[0] = runeFeuS;
+                sideRunesTabJ2[1] = runeTerreS;
+                sideRunesTabJ2[2] = runeEauS;
+                sideRunesTabJ2[3] = runeNuitS;
+                sideRunesVTabJ2[0] = runeFeu2VS;
+                sideRunesVTabJ2[1] = runeTerre2VS;
+                sideRunesVTabJ2[2] = runeEau2VS;
+                sideRunesVTabJ2[3] = runeNuit2VS;
                 break;
 
         }
 
-        genereSymbole(1);
+        genereSymbole(1,1);
+        genereSymbole(1,2);
 
-        runej1.AddComponent<SpriteRenderer>();
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
+        sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ1[cmpRJ1];
+        sideRune2j1.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ1[cmpRJ1+1];
+        sideRune3j1.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ1[cmpRJ1+2];
+        sideRune4j1.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ1[cmpRJ1+3];
 
-        runej2.AddComponent<SpriteRenderer>();
         runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
+        sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ2[cmpRJ2];
+        sideRune2j2.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ2[cmpRJ2 + 1];
+        sideRune3j2.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ2[cmpRJ2 + 2];
+        sideRune4j2.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ2[cmpRJ2 + 3];
 
-        //charger dans la matiere de match avec le .name
-
-        poolBlock = new ControlBlock[10];
-=======
->>>>>>> c531d0e583454756a8441c45897c196f8f7f3970
+        //charger dans la matrice de match avec le .name
 
         poolBlock = new ControlBlock[100];
 
@@ -116,13 +228,12 @@ public class Model : MonoBehaviour {
         spawnJ2(0);
     }
 
-<<<<<<< HEAD
     public bool estFinieJ1() {
         for (int i=0; i<12; i++)
         {
             for (int j = 0; j < 16; j++)
             {
-                //if (!matchingj1[i,j]) { return false; }
+                if (!symbolej1[i,j]) { return false; }
             }
         }
         return true;
@@ -134,7 +245,7 @@ public class Model : MonoBehaviour {
         {
             for (int j = 0; j < 16; j++)
             {
-                //if (!matchingj2[i, j]) { return false; }
+                if (!symbolej2[i, j]) { return false; }
             }
         }
         return true;
@@ -143,22 +254,21 @@ public class Model : MonoBehaviour {
     public void passerRuneJ1()
     {
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
+        sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1-1];
+        //changer la miniature
     }
     public void passerRuneJ2()
     {
         runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
+        sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
     }
 
-
-    void genereSymbole(int i)
-=======
     void genereSymbole(int i, int joueur)
->>>>>>> c531d0e583454756a8441c45897c196f8f7f3970
     {
-        bool[,] symbole = new bool[12, 16];
-        for (int j = 0; j < 12; j++)
+        bool[,] symbole = new bool[16, 12];
+        for (int j = 0; j < 16; j++)
         {
-            for (int k = 0; k < 1; k++)
+            for (int k = 0; k < 12; k++)
             {
                 symbole[j, k] = true;
             }
@@ -370,7 +480,7 @@ public class Model : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (true) //estFinieJ1()
+        if (estFinieJ1())
         {
             cmpRJ1++;
             if (cmpRJ1 >= 4)
