@@ -139,6 +139,8 @@ public class ControlBlock {
     public bool espaceDispo(int dx, int dy, int sens, int j)
     {
         int tmp_o = orientation;
+        if (sens == -1)
+            sens = 3;
         Point[] res = new Point[3];
         if ((currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
         {
