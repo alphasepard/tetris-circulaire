@@ -23,6 +23,7 @@ public class Model : MonoBehaviour {
 
     private ControlBlock[] poolBlock;
 
+    public GameObject soundWin, soundMatch, soundCompleted, ost;
     public GameObject runej1, runej2;
     public GameObject sideRune1j1, sideRune2j1, sideRune3j1, sideRune4j1;
     public GameObject sideRune1j2, sideRune2j2, sideRune3j2, sideRune4j2;
@@ -44,6 +45,9 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        ost.GetComponent<AudioSource>().Play();
+
+
         runej1.AddComponent<SpriteRenderer>();
         runej2.AddComponent<SpriteRenderer>();
         sideRune1j1.AddComponent<SpriteRenderer>();
@@ -55,10 +59,10 @@ public class Model : MonoBehaviour {
         sideRune3j2.AddComponent<SpriteRenderer>();
         sideRune4j2.AddComponent<SpriteRenderer>();
 
-        runeEau = Resources.Load<Sprite>("runeEau");
-        runeFeu = Resources.Load<Sprite>("runeFeu");
-        runeTerre = Resources.Load<Sprite>("runeTerre");
-        runeNuit = Resources.Load<Sprite>("runeNuit");
+        runeEau = Resources.Load<Sprite>("runeEau1");
+        runeFeu = Resources.Load<Sprite>("runeFeu1");
+        runeTerre = Resources.Load<Sprite>("runeTerre1");
+        runeNuit = Resources.Load<Sprite>("runeNuit1");
 
         runeEauS = Resources.Load<Sprite>("RuneEauS");
         runeFeuS = Resources.Load<Sprite>("RuneFeuS");
@@ -269,6 +273,7 @@ public class Model : MonoBehaviour {
 
     public void passerRuneJ1()
     {
+        soundCompleted.GetComponent<AudioSource>().Play();
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
         sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1-1];
         switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
@@ -289,6 +294,7 @@ public class Model : MonoBehaviour {
     }
     public void passerRuneJ2()
     {
+        soundCompleted.GetComponent<AudioSource>().Play();
         runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
         sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
         switch (runej2.GetComponent<SpriteRenderer>().sprite.name)
@@ -520,6 +526,15 @@ public class Model : MonoBehaviour {
         modifRotation = 0;
     }
 
+    public void victoryJ1()
+    {
+
+    }
+    public void victoryJ2()
+    {
+
+    }
+
     // Update is called once per frame
     void Update () {
 
@@ -528,7 +543,9 @@ public class Model : MonoBehaviour {
             cmpRJ1++;
             if (cmpRJ1 >= 4)
             {
-                //victoryJ1();
+                ost.GetComponent<AudioSource>().Pause();
+                soundWin.GetComponent<AudioSource>().Play();
+                victoryJ1();
             }
             else {
                 passerRuneJ1();
@@ -539,7 +556,9 @@ public class Model : MonoBehaviour {
             cmpRJ2++;
             if (cmpRJ2 >= 4)
             {
-                //victoryJ2();
+                ost.GetComponent<AudioSource>().Pause();
+                soundWin.GetComponent<AudioSource>().Play();
+                victoryJ2();
             }
             else {
                 passerRuneJ2();
