@@ -208,7 +208,7 @@ public class ControlBlock {
                             GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j1");
                             foreach(GameObject go in toBreak)
                             {
-                                GameObject.Destroy(go);
+                                //GameObject.Destroy(go);
                             }
                         }
 
@@ -231,7 +231,7 @@ public class ControlBlock {
                             GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j2");
                             foreach (GameObject go in toBreak)
                             {
-                                GameObject.Destroy(go);
+                               // GameObject.Destroy(go);
                             }
                         }
 
