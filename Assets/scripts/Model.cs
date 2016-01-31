@@ -13,14 +13,16 @@ public class Model : MonoBehaviour {
     public GameObject tripleBlock1;
     public GameObject tripleBlock2;
     public float moveUnit = 1f;
-    public float j1x0 = -11.84f;
-    public float y0 = 3.64f;
-    public float j2x0 = 1.09f;
+    public float j1x0 = 0.5f;
+    public float y0 = -1.5f;
+    public float j2x0 = 16.33f;
     public int modifRotation = 0;
     public bool[,] blocksFixesj1;
     public bool[,] symbolej1;
     public bool[,] blocksFixesj2;
     public bool[,] symbolej2;
+    public bool[,] matchingj1;
+    public bool[,] matchingj2;
 
     private ControlBlock[] poolBlock;
 
@@ -30,7 +32,6 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //doubleBlock.GetComponent<SpriteRenderer>().sprite.pivot = ;
 
         poolBlock = new ControlBlock[100];
 
@@ -43,6 +44,8 @@ public class Model : MonoBehaviour {
 
         blocksFixesj1 = new bool[12,16];
         blocksFixesj2 = new bool[12,16];
+        symbolej1 = new bool[12, 16];
+        symbolej2 = new bool[12, 16];
 
         for (int i = 0; i < 12; i++)
             for (int j = 0; j < 16; j++)
@@ -53,6 +56,143 @@ public class Model : MonoBehaviour {
 
         spawnJ1(0);
         spawnJ2(0);
+    }
+
+    void genereSymbole(int i, int joueur)
+    {
+        bool[,] symbole = new bool[12, 16];
+        for (int j = 0; j < 12; j++)
+        {
+            for (int k = 0; k < 12; k++)
+            {
+                symbole[j, k] = true;
+            }
+        }
+        switch (i)
+        {
+            case 1:
+                symbole[4, 6] = false;
+                symbole[5, 5] = false;
+                symbole[6, 4] = false;
+                symbole[7, 4] = false;
+                symbole[6, 6] = false;
+                symbole[7, 6] = false;
+                symbole[7, 7] = false;
+                symbole[8, 7] = false;
+                symbole[8, 9] = false;
+                symbole[7, 9] = false;
+                symbole[9, 9] = false;
+                symbole[9, 8] = false;
+                symbole[10, 8] = false;
+                symbole[11, 8] = false;
+                symbole[12, 8] = false;
+                symbole[12, 7] = false;
+                symbole[13, 7] = false;
+                symbole[13, 6] = false;
+                symbole[13, 5] = false;
+                symbole[13, 4] = false;
+                symbole[13, 3] = false;
+                symbole[12, 4] = false;
+                symbole[11, 4] = false;
+                symbole[14, 3] = false;
+                break;
+            case 2:
+                symbole[3, 6] = false;
+                symbole[4, 5] = false;
+                symbole[5, 4] = false;
+                symbole[6, 4] = false;
+                symbole[7, 4] = false;
+                symbole[8, 5] = false;
+                symbole[8, 7] = false;
+                symbole[8, 8] = false;
+                symbole[9, 8] = false;
+                symbole[10, 8] = false;
+                symbole[9, 6] = false;
+                symbole[10, 6] = false;
+                symbole[11, 7] = false;
+                symbole[12, 7] = false;
+                symbole[13, 8] = false;
+                symbole[14, 9] = false;
+                symbole[12, 6] = false;
+                symbole[13, 5] = false;
+                symbole[14, 4] = false;
+                symbole[13, 3] = false;
+                symbole[13, 2] = false;
+                symbole[12, 1] = false;
+                break;
+            case 3:
+                symbole[5, 4] = false;
+                symbole[6, 5] = false;
+                symbole[7, 6] = false;
+                symbole[7, 7] = false;
+                symbole[6, 8] = false;
+                symbole[7, 9] = false;
+                symbole[8, 9] = false;
+                symbole[9, 8] = false;
+                symbole[10, 9] = false;
+                symbole[11, 8] = false;
+                symbole[12, 7] = false;
+                symbole[13, 6] = false;
+                symbole[14, 5] = false;
+                symbole[10, 7] = false;
+                symbole[10, 6] = false;
+                symbole[10, 5] = false;
+                symbole[10, 4] = false;
+                symbole[10, 3] = false;
+                symbole[11, 5] = false;
+                symbole[12, 4] = false;
+                symbole[13, 3] = false;
+                symbole[14, 2] = false;
+                symbole[14, 3] = false;
+                symbole[14, 4] = false;
+                break;
+            case 4:
+                symbole[5, 2] = false;
+                symbole[5, 3] = false;
+                symbole[5, 4] = false;
+                symbole[5, 5] = false;
+                symbole[5, 6] = false;
+                symbole[5, 7] = false;
+                symbole[5, 8] = false;
+                symbole[5, 9] = false;
+                symbole[6, 9] = false;
+                symbole[7, 8] = false;
+                symbole[8, 7] = false;
+                symbole[9, 6] = false;
+                symbole[6, 10] = false;
+                symbole[7, 9] = false;
+                symbole[8, 8] = false;
+                symbole[9, 7] = false;
+                symbole[9, 2] = false;
+                symbole[9, 3] = false;
+                symbole[9, 4] = false;
+                symbole[10, 3] = false;
+                symbole[10, 5] = false;
+                symbole[11, 5] = false;
+                symbole[11, 4] = false;
+                symbole[12, 3] = false;
+                symbole[13, 2] = false;
+                symbole[14, 1] = false;
+                symbole[14, 2] = false;
+                symbole[14, 3] = false;
+                symbole[14, 4] = false;
+                symbole[14, 5] = false;
+                symbole[14, 6] = false;
+                symbole[12, 6] = false;
+                symbole[13, 7] = false;
+                symbole[13, 8] = false;
+                symbole[14, 8] = false;
+                symbole[14, 9] = false;
+                break;
+        }
+        if(joueur == 1)
+        {
+            symbolej1 = symbole;
+        }
+        else
+        {
+            symbolej2 = symbole;
+        }
     }
 
     void spawnJ1(int i)
@@ -73,6 +213,7 @@ public class Model : MonoBehaviour {
         if (joueur == 1)
         {
             x = j1x0 + 6 * moveUnit;
+            
             y = y0;
         }
         else if (joueur == 2) {
@@ -83,7 +224,6 @@ public class Model : MonoBehaviour {
         if (cb.currentBlock.name.Equals(doubleBlock.name))
         {
             newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
-
 
         }
         else if(cb.currentBlock.name.Equals(tripleBlock1.name))
@@ -117,6 +257,7 @@ public class Model : MonoBehaviour {
             x = j1.pieceCourante.x;
             y = j1.pieceCourante.y;
             o = j1.pieceCourante.orientation;
+            Debug.Log(moveUnit);
             j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 - y * moveUnit, 0);
             j1.pieceCourante.currentBlock.transform.Rotate(0, 0, modifRotation * 90);
         }
@@ -159,6 +300,8 @@ public class Model : MonoBehaviour {
             case 'd':
                 for (i = 0;i<piece.Length; i++)
                 {
+                    if (piece[i].v2 >= 11)
+                        return false;
                     if (tmp[piece[i].v2+1,piece[i].v1] == true)
                         return false;
                 }
@@ -166,6 +309,8 @@ public class Model : MonoBehaviour {
             case 'g':
                 for (i = 0; i<piece.Length; i++)
                 {
+                    if (piece[i].v2 <= 0)
+                        return false;
                     if (tmp[piece[i].v2-1,piece[i].v1] == true)
                         return false;
                 }
@@ -173,9 +318,16 @@ public class Model : MonoBehaviour {
             case 'b':
                 for (i = 0; i<piece.Length; i++)
                 {
-                    if (piece[i].v1 >= 15)
+                    if (piece[i].v1 > 15)
                         return false;
                     if (tmp[piece[i].v2,piece[i].v1+1] == true)
+                        return false;
+                }
+                break;
+            case 'r':
+                for (i = 0; i < piece.Length; i++)
+                {
+                    if (tmp[piece[i].v2, piece[i].v1] == true)
                         return false;
                 }
                 break;

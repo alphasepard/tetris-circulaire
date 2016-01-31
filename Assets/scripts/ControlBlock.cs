@@ -17,7 +17,6 @@ public class ControlBlock {
         model = m;
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
-        //Debug.Log(randomType);
         switch (randomType)
         {
             case 1:
@@ -71,53 +70,27 @@ public class ControlBlock {
     public bool espaceDispo(int dx, int dy, int sens, int j)
     {
         Point[] res = new Point[3];
-        if (currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)"))
+        if ((currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
         {
-            switch ((orientation+sens)%4)
-            {
-                case 0:
-                    res[0] = new Point(y+2, x);
-                    res[1] = new Point(y+1, x);
-                    res[2] = new Point(y  , x);
-                    break;
-                case 1:
-                    res[0] = new Point(y, x-1);
-                    res[1] = new Point(y, x-2);
-                    res[2] = new Point(y, x  );
-                    break;
-                case 2:
-                    res[0] = new Point(y-2, x);
-                    res[1] = new Point(y-1, x);
-                    res[2] = new Point(y  , x);
-                    break;
-                case 3:
-                    res[0] = new Point(y, x+1);
-                    res[1] = new Point(y, x+2);
-                    res[2] = new Point(y, x  );
-                    break;
-            }
-        }
-        else if (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)"))
-        {
-            switch ((orientation + sens) % 4)
+            switch ((orientation + sens)%4)
             {
                 case 0:
                 case 2:
-                    res[0] = new Point(y, x-1);
-                    res[1] = new Point(y, x+1);
-                    res[2] = new Point(y, x  );
-                    break;
-                case 1:
-                case 3:
                     res[0] = new Point(y+1, x);
                     res[1] = new Point(y-1, x);
                     res[2] = new Point(y  , x);
+                    break;
+                case 1:
+                case 3:
+                    res[0] = new Point(y, x+1);
+                    res[1] = new Point(y, x-1);
+                    res[2] = new Point(y, x  );
                     break;
             }
         }
         else if (currentBlock.name.Equals(model.doubleBlock.name + "(Clone)"))
         {
-            switch ((orientation + sens) % 4)
+            switch ((orientation + sens)%4)
             {
                 case 0:
                     res[0] = new Point(y+1, x);
@@ -125,7 +98,7 @@ public class ControlBlock {
                     Array.Resize(ref res, 2);
                     break;
                 case 1:
-                    res[0] = new Point(y, x+1);
+                    res[0] = new Point(y, x-1);
                     res[1] = new Point(y, x  );
                     Array.Resize(ref res, 2);
                     break;
@@ -135,7 +108,7 @@ public class ControlBlock {
                     Array.Resize(ref res, 2);
                     break;
                 case 3:
-                    res[0] = new Point(y, x-1);
+                    res[0] = new Point(y, x+1);
                     res[1] = new Point(y, x  );
                     Array.Resize(ref res, 2);
                     break;
@@ -155,7 +128,7 @@ public class ControlBlock {
         }
         else if (sens != 0)
         {
-            return true;
+            return model.dep(res, 'r', j);
         }
         else return true;
     }
