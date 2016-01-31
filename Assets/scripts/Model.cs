@@ -185,8 +185,6 @@ public class Model : MonoBehaviour {
 
         }
 
-        genereSymbole(1,1);
-        genereSymbole(1,2);
 
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
         sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ1[cmpRJ1];
@@ -200,7 +198,26 @@ public class Model : MonoBehaviour {
         sideRune3j2.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ2[cmpRJ2 + 2];
         sideRune4j2.GetComponent<SpriteRenderer>().sprite = sideRunesTabJ2[cmpRJ2 + 3];
 
-        //charger dans la matrice de match avec le .name
+        switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
+        {
+            case "RuneTerre":
+                genereSymbole(3, 1);
+                genereSymbole(3, 2);
+                break;
+            case "RuneEau":
+                genereSymbole(1, 1);
+                genereSymbole(1, 2);
+                break;
+            case "RuneFeu":
+                genereSymbole(2, 1);
+                genereSymbole(2, 2);
+                break;
+            case "RuneNuit":
+                genereSymbole(4, 1);
+                genereSymbole(4, 2);
+                break;
+        }
+
 
         poolBlock = new ControlBlock[5012];
 
@@ -213,8 +230,8 @@ public class Model : MonoBehaviour {
 
         blocksFixesj1 = new bool[12,16];
         blocksFixesj2 = new bool[12,16];
-        symbolej1 = new bool[16, 12];
-        symbolej2 = new bool[16, 12];
+        symbolej1 = new bool[12, 16];
+        symbolej2 = new bool[12, 16];
 
         for (int i = 0; i < 12; i++)
             for (int j = 0; j < 16; j++)
@@ -254,20 +271,49 @@ public class Model : MonoBehaviour {
     {
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
         sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1-1];
-        //changer la miniature
+        switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
+        {
+            case "RuneTerre":
+                genereSymbole(3, 1);
+                break;
+            case "RuneEau":
+                genereSymbole(1, 1);
+                break;
+            case "RuneFeu":
+                genereSymbole(2, 1);
+                break;
+            case "RuneNuit":
+                genereSymbole(4, 1);
+                break;
+        }
     }
     public void passerRuneJ2()
     {
         runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
         sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
+        switch (runej2.GetComponent<SpriteRenderer>().sprite.name)
+        {
+            case "RuneTerre":
+                genereSymbole(3, 2);
+                break;
+            case "RuneEau":
+                genereSymbole(1, 2);
+                break;
+            case "RuneFeu":
+                genereSymbole(2, 2);
+                break;
+            case "RuneNuit":
+                genereSymbole(4, 2);
+                break;
+        }
     }
 
     void genereSymbole(int i, int joueur)
     {
-        bool[,] symbole = new bool[16, 12];
-        for (int j = 0; j < 16; j++)
+        bool[,] symbole = new bool[12, 16];
+        for (int j = 0; j < 12; j++)
         {
-            for (int k = 0; k < 12; k++)
+            for (int k = 0; k < 16; k++)
             {
                 symbole[j, k] = true;
             }
@@ -275,118 +321,118 @@ public class Model : MonoBehaviour {
         switch (i)
         {
             case 1:
-                symbole[4, 6] = false;
-                symbole[5, 5] = false;
                 symbole[6, 4] = false;
-                symbole[7, 4] = false;
+                symbole[5, 5] = false;
+                symbole[4, 6] = false;
+                symbole[4, 7] = false;
                 symbole[6, 6] = false;
-                symbole[7, 6] = false;
+                symbole[6, 7] = false;
                 symbole[7, 7] = false;
-                symbole[8, 7] = false;
-                symbole[8, 9] = false;
-                symbole[7, 9] = false;
-                symbole[9, 9] = false;
+                symbole[7, 8] = false;
                 symbole[9, 8] = false;
-                symbole[10, 8] = false;
-                symbole[11, 8] = false;
-                symbole[12, 8] = false;
-                symbole[12, 7] = false;
-                symbole[13, 7] = false;
-                symbole[13, 6] = false;
-                symbole[13, 5] = false;
-                symbole[13, 4] = false;
-                symbole[13, 3] = false;
-                symbole[12, 4] = false;
-                symbole[11, 4] = false;
-                symbole[14, 3] = false;
+                symbole[9, 7] = false;
+                symbole[9, 9] = false;
+                symbole[8, 9] = false;
+                symbole[8, 10] = false;
+                symbole[8, 11] = false;
+                symbole[8, 12] = false;
+                symbole[7, 12] = false;
+                symbole[7, 13] = false;
+                symbole[6, 13] = false;
+                symbole[5, 13] = false;
+                symbole[4, 13] = false;
+                symbole[3, 13] = false;
+                symbole[4, 12] = false;
+                symbole[4, 11] = false;
+                symbole[3, 14] = false;
                 break;
             case 2:
-                symbole[3, 6] = false;
-                symbole[4, 5] = false;
+                symbole[6, 3] = false;
                 symbole[5, 4] = false;
-                symbole[6, 4] = false;
-                symbole[7, 4] = false;
-                symbole[8, 5] = false;
-                symbole[8, 7] = false;
+                symbole[4, 5] = false;
+                symbole[4, 6] = false;
+                symbole[4, 7] = false;
+                symbole[5, 8] = false;
+                symbole[7, 8] = false;
                 symbole[8, 8] = false;
-                symbole[9, 8] = false;
-                symbole[10, 8] = false;
-                symbole[9, 6] = false;
-                symbole[10, 6] = false;
-                symbole[11, 7] = false;
-                symbole[12, 7] = false;
-                symbole[13, 8] = false;
-                symbole[14, 9] = false;
-                symbole[12, 6] = false;
-                symbole[13, 5] = false;
-                symbole[14, 4] = false;
-                symbole[13, 3] = false;
-                symbole[13, 2] = false;
-                symbole[12, 1] = false;
+                symbole[8, 9] = false;
+                symbole[8, 10] = false;
+                symbole[6, 9] = false;
+                symbole[6, 10] = false;
+                symbole[7, 11] = false;
+                symbole[7, 12] = false;
+                symbole[8, 13] = false;
+                symbole[9, 14] = false;
+                symbole[6, 12] = false;
+                symbole[5, 13] = false;
+                symbole[4, 14] = false;
+                symbole[3, 13] = false;
+                symbole[2, 13] = false;
+                symbole[1, 12] = false;
                 break;
             case 3:
-                symbole[5, 4] = false;
-                symbole[6, 5] = false;
-                symbole[7, 6] = false;
+                symbole[4, 5] = false;
+                symbole[5, 6] = false;
+                symbole[6, 7] = false;
                 symbole[7, 7] = false;
-                symbole[6, 8] = false;
-                symbole[7, 9] = false;
-                symbole[8, 9] = false;
+                symbole[8, 6] = false;
+                symbole[9, 7] = false;
                 symbole[9, 8] = false;
-                symbole[10, 9] = false;
-                symbole[11, 8] = false;
-                symbole[12, 7] = false;
-                symbole[13, 6] = false;
-                symbole[14, 5] = false;
-                symbole[10, 7] = false;
-                symbole[10, 6] = false;
-                symbole[10, 5] = false;
-                symbole[10, 4] = false;
-                symbole[10, 3] = false;
-                symbole[11, 5] = false;
-                symbole[12, 4] = false;
-                symbole[13, 3] = false;
-                symbole[14, 2] = false;
-                symbole[14, 3] = false;
-                symbole[14, 4] = false;
+                symbole[8, 9] = false;
+                symbole[9, 10] = false;
+                symbole[8, 11] = false;
+                symbole[7, 12] = false;
+                symbole[6, 13] = false;
+                symbole[5, 14] = false;
+                symbole[7, 10] = false;
+                symbole[6, 10] = false;
+                symbole[5, 10] = false;
+                symbole[4, 10] = false;
+                symbole[3, 10] = false;
+                symbole[5, 11] = false;
+                symbole[4, 12] = false;
+                symbole[3, 13] = false;
+                symbole[2, 14] = false;
+                symbole[3, 14] = false;
+                symbole[4, 14] = false;
                 break;
             case 4:
-                symbole[5, 2] = false;
-                symbole[5, 3] = false;
-                symbole[5, 4] = false;
+                symbole[2, 5] = false;
+                symbole[3, 5] = false;
+                symbole[4, 5] = false;
                 symbole[5, 5] = false;
-                symbole[5, 6] = false;
-                symbole[5, 7] = false;
-                symbole[5, 8] = false;
-                symbole[5, 9] = false;
-                symbole[6, 9] = false;
-                symbole[7, 8] = false;
-                symbole[8, 7] = false;
+                symbole[6, 5] = false;
+                symbole[7, 5] = false;
+                symbole[8, 5] = false;
+                symbole[9, 5] = false;
                 symbole[9, 6] = false;
-                symbole[6, 10] = false;
-                symbole[7, 9] = false;
-                symbole[8, 8] = false;
+                symbole[8, 7] = false;
+                symbole[7, 8] = false;
+                symbole[6, 9] = false;
+                symbole[10, 6] = false;
                 symbole[9, 7] = false;
-                symbole[9, 2] = false;
-                symbole[9, 3] = false;
-                symbole[9, 4] = false;
-                symbole[10, 3] = false;
-                symbole[10, 5] = false;
-                symbole[11, 5] = false;
-                symbole[11, 4] = false;
-                symbole[12, 3] = false;
-                symbole[13, 2] = false;
-                symbole[14, 1] = false;
-                symbole[14, 2] = false;
-                symbole[14, 3] = false;
-                symbole[14, 4] = false;
-                symbole[14, 5] = false;
-                symbole[14, 6] = false;
-                symbole[12, 6] = false;
-                symbole[13, 7] = false;
-                symbole[13, 8] = false;
-                symbole[14, 8] = false;
-                symbole[14, 9] = false;
+                symbole[8, 8] = false;
+                symbole[7, 9] = false;
+                symbole[2, 9] = false;
+                symbole[3, 9] = false;
+                symbole[4, 9] = false;
+                symbole[3, 10] = false;
+                symbole[5, 10] = false;
+                symbole[5, 11] = false;
+                symbole[4, 11] = false;
+                symbole[3, 12] = false;
+                symbole[2, 13] = false;
+                symbole[1, 14] = false;
+                symbole[2, 14] = false;
+                symbole[3, 14] = false;
+                symbole[4, 14] = false;
+                symbole[5, 14] = false;
+                symbole[6, 14] = false;
+                symbole[6, 12] = false;
+                symbole[7, 13] = false;
+                symbole[8, 13] = false;
+                symbole[8, 14] = false;
+                symbole[9, 14] = false;
                 break;
         }
         if(joueur == 1)
@@ -427,7 +473,7 @@ public class Model : MonoBehaviour {
 
         if (cb.currentBlock.name.Equals(doubleBlock.name))
         {
-            newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
+            newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);   
         }
         else if(cb.currentBlock.name.Equals(tripleBlock1.name))
         {
@@ -526,35 +572,64 @@ public class Model : MonoBehaviour {
             case 'd':
                 for (i = 0;i<piece.Length; i++)
                 {
-                    if (piece[i].x == 11)
+                    try
+                    {
+                        if (piece[i].x == 11)
+                            return false;
+                        if (tmp[piece[i].x + 1, piece[i].y] == true)
+                            return false;
+                    }
+                    catch
+                    {
                         return false;
-                    if (tmp[piece[i].x+1,piece[i].y] == true)
-                        return false;
+                    }
+                    
                 }
                 break;
             case 'g':
                 for (i = 0; i<piece.Length; i++)
                 {
-                    if (piece[i].x == 0)
+                    try
+                    {
+                        if (piece[i].x == 0)
+                            return false;
+                        if (tmp[piece[i].x - 1, piece[i].y] == true)
+                            return false;
+                    }
+                    catch
+                    {
                         return false;
-                    if (tmp[piece[i].x-1,piece[i].y] == true)
-                        return false;
+                    }
                 }
                 break;
             case 'b':
                 for (i = 0; i<piece.Length; i++)
                 {
-                    if (piece[i].y == 14)
+                    try
+                    {
+                        if (piece[i].y == 14)
+                            return false;
+                        if (tmp[piece[i].x, piece[i].y + 1] == true)
+                            return false;
+                    }
+                    catch
+                    {
                         return false;
-                    if (tmp[piece[i].x,piece[i].y+1] == true)
-                        return false;
+                    }
                 }
                 break;
             case 'r':
                 for (i = 0; i < piece.Length; i++)
                 {
-                    if (tmp[piece[i].x, piece[i].y] == true)
+                    try
+                    {
+                        if (tmp[piece[i].x, piece[i].y] == true)
+                            return false;
+                    }
+                    catch
+                    {
                         return false;
+                    }
                 }
                 break;
         }

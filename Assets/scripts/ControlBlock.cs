@@ -202,47 +202,49 @@ public class ControlBlock {
                 Point[] stucked = getListeBlocks();
                 if(j == 1)
                 {
-                    foreach (Point p in res)
+                    foreach (Point stuck in stucked)
                     {
-                        if(!model.symbolej1[p.y, p.x] && !p.colored)
+                        Debug.Log("Coordonnées : " + stuck.x + ";" + stuck.y + " /// bool matrice : " + model.symbolej1[stuck.x, stuck.y] + " /// Couleur de l'ajout : " + stuck.colored);
+                        //Debug.Log(stuck.colored);
+                        if (!model.symbolej1[stuck.x, stuck.y] && !stuck.colored)
                         {
                             //Destruction
-                            GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j1");
-                            foreach(GameObject go in toBreak)
+                            GameObject[] toBreak1 = GameObject.FindGameObjectsWithTag("j1");
+                            foreach(GameObject go in toBreak1)
                             {
                                 //GameObject.Destroy(go);
                             }
                         }
 
-                        if(!model.symbolej1[p.y, p.x] && p.colored)
+                        if(!model.symbolej1[stuck.x, stuck.y] && stuck.colored)
                         {
-                            model.symbolej1[p.y, p.x] = true;
+                            model.symbolej1[stuck.x, stuck.y] = true;
                         }
 
-                        model.blocksFixesj1[p.x, p.y] = true;
+                        model.blocksFixesj1[stuck.x, stuck.y] = true;
                     }
                     
                 }
                 else
                 {
-                    foreach (Point p in res)
+                    foreach (Point stuck in stucked)
                     {
-                        if (!model.symbolej2[p.y, p.x] && !p.colored)
+                        if (!model.symbolej2[stuck.x, stuck.y] && !stuck.colored)
                         {
                             //Destruction
-                            GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j2");
-                            foreach (GameObject go in toBreak)
+                            GameObject[] toBreak2 = GameObject.FindGameObjectsWithTag("j2");
+                            foreach (GameObject go in toBreak2)
                             {
-                               // GameObject.Destroy(go);
+                              // GameObject.Destroy(go);
                             }
                         }
 
-                        if (!model.symbolej2[p.y, p.x] && p.colored)
+                        if (!model.symbolej2[stuck.x, stuck.y] && stuck.colored)
                         {
-                            model.symbolej2[p.y, p.x] = true;
+                            model.symbolej2[stuck.x, stuck.y] = true;
                         }
 
-                        model.blocksFixesj2[p.x, p.y] = true;
+                        model.blocksFixesj2[stuck.x, stuck.y] = true;
                     }
                 }
             }
