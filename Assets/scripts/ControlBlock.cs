@@ -17,19 +17,18 @@ public class ControlBlock {
         model = m;
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
-        //Debug.Log(randomType);
-        /*switch (randomType)
+        switch (randomType)
         {
-            case 1:*/
+            case 1:
                 currentBlock = model.doubleBlock;
-                /*break;
+                break;
             case 2:
                 currentBlock = model.tripleBlock1;
                 break;
             case 3:
                 currentBlock = model.tripleBlock2;
                 break;
-        }*/
+        }
         this.x = 6;
         this.y = 0;
     }
@@ -39,7 +38,7 @@ public class ControlBlock {
         int sens = 0;
         if (horaire) sens = 1;
         else sens = -1;
-        if (espaceDispo(0, 0, sens)){
+        if (espaceDispo(0, 0, sens, j)){
             if (horaire)
             {
                 orientation = (orientation + 1) % 4;
@@ -60,88 +59,78 @@ public class ControlBlock {
 
     public bool move(int x, int y, int j)
     {
-        if (espaceDispo(x, y, 0)) {
+        if (espaceDispo(x, y, 0, j)) {
             this.x = this.x + x;
             this.y = this.y + y;
             notify(j);
         }
-        return (!espaceDispo(x, y, 0) & y > 0);
+        return (!espaceDispo(x, y, 0, j));
     }
 
-    public bool espaceDispo(int x, int y, int sens)
+    public bool espaceDispo(int dx, int dy, int sens, int j)
     {
-        /*bool down, left, right, up;
-        int leftWide, rightWide, downWide, upWide;
-        leftWide = 0;
-        rightWide = 0;
-        downWide = 0;
-        upWide = 0;
-        if (currentBlock.name.Equals(model.tripleBlock1.name))
+        Point[] res = new Point[3];
+        if ((currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
         {
-            switch ((orientation+sens)%4)
-            {
-                case 0:
-                    downWide = 2;
-                    break;
-                case 1:
-                    leftWide = 2;
-                    break;
-                case 2:
-                    upWide = 2;
-                    break;
-                case 3:
-                    rightWide = 2;
-                    break;
-            }
-        }
-        else if (currentBlock.name.Equals(model.tripleBlock2.name))
-        {
-            switch ((orientation + sens) % 4)
+            switch ((orientation + sens)%4)
             {
                 case 0:
                 case 2:
-                    upWide = 1;
-                    downWide = 1;
+                    res[0] = new Point(y+1, x);
+                    res[1] = new Point(y-1, x);
+                    res[2] = new Point(y  , x);
                     break;
                 case 1:
                 case 3:
-                    upWide = 1;
-                    downWide = 1;
+                    res[0] = new Point(y, x+1);
+                    res[1] = new Point(y, x-1);
+                    res[2] = new Point(y, x  );
                     break;
             }
         }
-        else if (currentBlock.name.Equals(model.doubleBlock.name))
+        else if (currentBlock.name.Equals(model.doubleBlock.name + "(Clone)"))
         {
-            switch ((orientation + sens) % 4)
+            switch ((orientation + sens)%4)
             {
                 case 0:
-                    downWide = 1;
+                    res[0] = new Point(y+1, x);
+                    res[1] = new Point(y  , x);
+                    Array.Resize(ref res, 2);
                     break;
                 case 1:
-                    leftWide = 1;
+                    res[0] = new Point(y, x-1);
+                    res[1] = new Point(y, x  );
+                    Array.Resize(ref res, 2);
                     break;
                 case 2:
-                    upWide = 1;
+                    res[0] = new Point(y-1, x);
+                    res[1] = new Point(y  , x);
+                    Array.Resize(ref res, 2);
                     break;
                 case 3:
-                    rightWide = 1;
+                    res[0] = new Point(y, x+1);
+                    res[1] = new Point(y, x  );
+                    Array.Resize(ref res, 2);
                     break;
             }
         }
-        down = model.down(this, downWide);
-        left = model.left(this, leftWide);
-        right = model.right(this, rightWide);
-        up = model.up(this, upWide);
-        if (x > 0)
-            return (true);
-        else if (x > 0)
-            return (true);
-        else if (y > 0)
-            return (true);
+        if (dx > 0)
+        {
+            return model.dep(res, 'd', j);
+        }
+        else if (dx < 0)
+        {
+            return model.dep(res, 'g', j);
+        }
+        else if (dy > 0)
+        {
+            return model.dep(res, 'b', j);
+        }
         else if (sens != 0)
-            return (true);
-        else return true;*/
-        return true;
+        {
+            return model.dep(res, 'r', j);
+        }
+        else return true;
     }
 
 }

@@ -10,17 +10,17 @@ public class Model : MonoBehaviour {
     public controleurJ1 j1;
     public controleurJ2 j2;
     public GameObject doubleBlock;
-    /*public GameObject tripleBlock1;
-    public GameObject tripleBlock2;*/
-    public float moveUnit = 0.748f;
-    
-    public float j1x0 = -12.8f;
-    public float y0 = 3.98f;
-    public float j2x0 = 0.15f;
+    public GameObject tripleBlock1;
+    public GameObject tripleBlock2;
+    public float moveUnit = 1f;
+    public float j1x0 = 0.5f;
+    public float y0 = -1.5f;
+    public float j2x0 = 16.33f;
     public int modifRotation = 0;
     public bool[,] blocksFixesj1;
+    public bool[,] symbolej1;
     public bool[,] blocksFixesj2;
-    public bool[,] symbole;
+    public bool[,] symbolej2;
     public bool[,] matchingj1;
     public bool[,] matchingj2;
 
@@ -37,6 +37,7 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+<<<<<<< HEAD
         runeEau = Resources.Load<Sprite>("runeEau");
         runeFeu = Resources.Load<Sprite>("runeFeu");
         runeTerre = Resources.Load<Sprite>("runeTerre");
@@ -87,18 +88,35 @@ public class Model : MonoBehaviour {
         //charger dans la matiere de match avec le .name
 
         poolBlock = new ControlBlock[10];
+=======
+>>>>>>> c531d0e583454756a8441c45897c196f8f7f3970
 
-        for (int i = 0; i < 10; i++)
+        poolBlock = new ControlBlock[100];
+
+        for (int i = 0; i < 100; i++)
         {
             poolBlock[i] = new ControlBlock(this);
 
             poolBlock[i].model = this;
         }
 
+        blocksFixesj1 = new bool[12,16];
+        blocksFixesj2 = new bool[12,16];
+        symbolej1 = new bool[12, 16];
+        symbolej2 = new bool[12, 16];
+
+        for (int i = 0; i < 12; i++)
+            for (int j = 0; j < 16; j++)
+            {
+                blocksFixesj1[i, j] = false;
+                blocksFixesj2[i, j] = false;
+            }
+
         spawnJ1(0);
         spawnJ2(0);
     }
 
+<<<<<<< HEAD
     public bool estFinieJ1() {
         for (int i=0; i<12; i++)
         {
@@ -133,7 +151,11 @@ public class Model : MonoBehaviour {
 
 
     void genereSymbole(int i)
+=======
+    void genereSymbole(int i, int joueur)
+>>>>>>> c531d0e583454756a8441c45897c196f8f7f3970
     {
+        bool[,] symbole = new bool[12, 16];
         for (int j = 0; j < 12; j++)
         {
             for (int k = 0; k < 1; k++)
@@ -258,6 +280,14 @@ public class Model : MonoBehaviour {
                 symbole[14, 9] = false;
                 break;
         }
+        if(joueur == 1)
+        {
+            symbolej1 = symbole;
+        }
+        else
+        {
+            symbolej2 = symbole;
+        }
     }
 
     void spawnJ1(int i)
@@ -282,23 +312,23 @@ public class Model : MonoBehaviour {
             y = y0;
         }
         else if (joueur == 2) {
-            x = j2x0 + 2 * moveUnit;
+            x = j2x0 + 6 * moveUnit;
             y = y0;
         }
 
-        /*if (cb.currentBlock.name.Equals(doubleBlock.name))
-        {*/
+        if (cb.currentBlock.name.Equals(doubleBlock.name))
+        {
             newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
 
-        /*}*/
-        /*else if(cb.currentBlock.name.Equals(tripleBlock1.name))
+        }
+        else if(cb.currentBlock.name.Equals(tripleBlock1.name))
         {
             newPiece = (GameObject)GameObject.Instantiate(tripleBlock1, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
         }
         else
         {
             newPiece = (GameObject)GameObject.Instantiate(tripleBlock2, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
-        }*/
+        }
         newPiece.transform.Rotate(0, 0, cb.orientation * 90);
         newControlBlock = new ControlBlock(this);
         newControlBlock.currentBlock = newPiece;
@@ -368,6 +398,7 @@ public class Model : MonoBehaviour {
             j1.n++;
             j1.pieceCourante = poolBlock[j1.n];
             spawnJ1(j1.n);
+            j1.toucherLeFond = false;
         }
 
         if (j2.toucherLeFond)
@@ -375,25 +406,51 @@ public class Model : MonoBehaviour {
             j2.n++;
             j2.pieceCourante = poolBlock[j2.n];
             spawnJ2(j2.n);
+            j2.toucherLeFond = false;
         }
     } 
-    public bool down(ControlBlock cb, int dw)
+    
+    public bool dep(Point[] piece, char dir, int j)
     {
-        return true;
-    }
-
-    public bool left(ControlBlock cb, int dl)
-    {
-        return true;
-    }
-
-    public bool right(ControlBlock cb, int dr)
-    {
-        return true;
-    }
-
-    public bool up(ControlBlock cb, int du)
-    {
+        bool[,] tmp = (j == 1) ? blocksFixesj1 : blocksFixesj2;
+        int i = 0;
+        switch (dir)
+        {
+            case 'd':
+                for (i = 0;i<piece.Length; i++)
+                {
+                    if (piece[i].v2 >= 11)
+                        return false;
+                    if (tmp[piece[i].v2+1,piece[i].v1] == true)
+                        return false;
+                }
+                break;
+            case 'g':
+                for (i = 0; i<piece.Length; i++)
+                {
+                    if (piece[i].v2 <= 0)
+                        return false;
+                    if (tmp[piece[i].v2-1,piece[i].v1] == true)
+                        return false;
+                }
+                break;
+            case 'b':
+                for (i = 0; i<piece.Length; i++)
+                {
+                    if (piece[i].v1 > 15)
+                        return false;
+                    if (tmp[piece[i].v2,piece[i].v1+1] == true)
+                        return false;
+                }
+                break;
+            case 'r':
+                for (i = 0; i < piece.Length; i++)
+                {
+                    if (tmp[piece[i].v2, piece[i].v1] == true)
+                        return false;
+                }
+                break;
+        }
         return true;
     }
 }
