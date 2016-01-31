@@ -26,13 +26,66 @@ public class Model : MonoBehaviour {
 
     private ControlBlock[] poolBlock;
 
+    public GameObject runej1, runej2;
+    public int cmpRJ1 = 0 , cmpRJ2 = 0;
+    Sprite runeEau, runeFeu, runeTerre, runeNuit;
+    public Sprite[] runesTab;
+
     int interval = 1;
     float nextTime = 0;
 
     // Use this for initialization
     void Start()
     {
-        Debug.Log(moveUnit);
+        runeEau = Resources.Load<Sprite>("runeEau");
+        runeFeu = Resources.Load<Sprite>("runeFeu");
+        runeTerre = Resources.Load<Sprite>("runeTerre");
+        runeNuit = Resources.Load<Sprite>("runeNuit");
+
+        //Générer un arrangement aléatoire des 4 dans runesTab
+        runesTab = new Sprite[4];
+        System.Random rnd = new System.Random();
+        int x = rnd.Next(0, 4);
+
+        switch (x)
+        {
+            case 0:
+                runesTab[0] = runeNuit;
+                runesTab[1] = runeEau;
+                runesTab[2] = runeFeu;
+                runesTab[3] = runeTerre;
+                break;
+            case 1:
+                runesTab[0] = runeEau;
+                runesTab[1] = runeFeu;
+                runesTab[2] = runeNuit;
+                runesTab[3] = runeTerre;
+                break;
+            case 2:
+                runesTab[0] = runeTerre;
+                runesTab[1] = runeNuit;
+                runesTab[2] = runeEau;
+                runesTab[3] = runeFeu;
+                break;
+            case 3:
+                runesTab[0] = runeFeu;
+                runesTab[1] = runeTerre;
+                runesTab[2] = runeEau;
+                runesTab[3] = runeNuit;
+                break;
+
+        }
+
+        genereSymbole(1);
+
+        runej1.AddComponent<SpriteRenderer>();
+        runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
+
+        runej2.AddComponent<SpriteRenderer>();
+        runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
+
+        //charger dans la matiere de match avec le .name
+
         poolBlock = new ControlBlock[10];
 
         for (int i = 0; i < 10; i++)
@@ -46,11 +99,44 @@ public class Model : MonoBehaviour {
         spawnJ2(0);
     }
 
+    public bool estFinieJ1() {
+        for (int i=0; i<12; i++)
+        {
+            for (int j = 0; j < 16; j++)
+            {
+                //if (!matchingj1[i,j]) { return false; }
+            }
+        }
+        return true;
+    }
+
+    public bool estFinieJ2()
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            for (int j = 0; j < 16; j++)
+            {
+                //if (!matchingj2[i, j]) { return false; }
+            }
+        }
+        return true;
+    }
+
+    public void passerRuneJ1()
+    {
+        runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
+    }
+    public void passerRuneJ2()
+    {
+        runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
+    }
+
+
     void genereSymbole(int i)
     {
         for (int j = 0; j < 12; j++)
         {
-            for (int k = 0; k < 12; k++)
+            for (int k = 0; k < 1; k++)
             {
                 symbole[j, k] = true;
             }
@@ -253,6 +339,30 @@ public class Model : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        if (true) //estFinieJ1()
+        {
+            cmpRJ1++;
+            if (cmpRJ1 >= 4)
+            {
+                //victoryJ1();
+            }
+            else {
+                passerRuneJ1();
+            }
+        }
+        if (estFinieJ2())
+        {
+            cmpRJ2++;
+            if (cmpRJ2 >= 4)
+            {
+                //victoryJ2();
+            }
+            else {
+                passerRuneJ2();
+            }
+        }
+
         if (j1.toucherLeFond)
         {
             j1.n++;
