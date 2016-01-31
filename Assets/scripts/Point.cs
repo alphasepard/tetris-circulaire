@@ -3,11 +3,13 @@ using System.Collections;
 
 public class Point {
 
-    public int v1, v2;
+    public int x, y;
+    public bool colored;
 
-	public Point(int v1, int v2)
+	public Point(int y, int x)
     {
-        this.v1 = v1;
-        this.v2 = v2;
+        this.colored = false;
+        this.y = y;
+        this.x = x;
     }
 }

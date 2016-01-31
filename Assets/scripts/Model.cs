@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 public class Model : MonoBehaviour {
 
@@ -14,7 +13,7 @@ public class Model : MonoBehaviour {
     public GameObject tripleBlock2;
     public float moveUnit = 1f;
     public float j1x0 = 0.5f;
-    public float y0 = -1.5f;
+    public float y0 = -0.5f;
     public float j2x0 = 16.33f;
     public int modifRotation = 0;
     public bool[,] blocksFixesj1;
@@ -61,7 +60,7 @@ public class Model : MonoBehaviour {
     void genereSymbole(int i, int joueur)
     {
         bool[,] symbole = new bool[12, 16];
-        for (int j = 0; j < 12; j++)
+        for (int j = 0; j < 16; j++)
         {
             for (int k = 0; k < 12; k++)
             {
@@ -224,7 +223,6 @@ public class Model : MonoBehaviour {
         if (cb.currentBlock.name.Equals(doubleBlock.name))
         {
             newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
-
         }
         else if(cb.currentBlock.name.Equals(tripleBlock1.name))
         {
@@ -234,9 +232,11 @@ public class Model : MonoBehaviour {
         {
             newPiece = (GameObject)GameObject.Instantiate(tripleBlock2, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
         }
+        newPiece.gameObject.tag = "j" + joueur;
         newPiece.transform.Rotate(0, 0, cb.orientation * 90);
         newControlBlock = new ControlBlock(this);
         newControlBlock.currentBlock = newPiece;
+        newControlBlock.orientation = cb.orientation;
         if (joueur == 1)
         {
             j1.pieceCourante = newControlBlock;
@@ -251,13 +251,11 @@ public class Model : MonoBehaviour {
 
     public void update_move(int j)
     {
-        int x, y, o;
+        int x, y;
         if(j == 1)
         {
             x = j1.pieceCourante.x;
             y = j1.pieceCourante.y;
-            o = j1.pieceCourante.orientation;
-            Debug.Log(moveUnit);
             j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 - y * moveUnit, 0);
             j1.pieceCourante.currentBlock.transform.Rotate(0, 0, modifRotation * 90);
         }
@@ -265,7 +263,6 @@ public class Model : MonoBehaviour {
         {
             x = j2.pieceCourante.x;
             y = j2.pieceCourante.y;
-            o = j2.pieceCourante.orientation;
             j2.pieceCourante.currentBlock.transform.position = new Vector3(j2x0 + x * moveUnit, y0 - y * moveUnit, 0);
             j2.pieceCourante.currentBlock.transform.Rotate(0, 0, modifRotation * 90);
         }
@@ -300,34 +297,34 @@ public class Model : MonoBehaviour {
             case 'd':
                 for (i = 0;i<piece.Length; i++)
                 {
-                    if (piece[i].v2 >= 11)
+                    if (piece[i].x == 11)
                         return false;
-                    if (tmp[piece[i].v2+1,piece[i].v1] == true)
+                    if (tmp[piece[i].x+1,piece[i].y] == true)
                         return false;
                 }
                 break;
             case 'g':
                 for (i = 0; i<piece.Length; i++)
                 {
-                    if (piece[i].v2 <= 0)
+                    if (piece[i].x == 0)
                         return false;
-                    if (tmp[piece[i].v2-1,piece[i].v1] == true)
+                    if (tmp[piece[i].x-1,piece[i].y] == true)
                         return false;
                 }
                 break;
             case 'b':
                 for (i = 0; i<piece.Length; i++)
                 {
-                    if (piece[i].v1 > 15)
+                    if (piece[i].y == 14)
                         return false;
-                    if (tmp[piece[i].v2,piece[i].v1+1] == true)
+                    if (tmp[piece[i].x,piece[i].y+1] == true)
                         return false;
                 }
                 break;
             case 'r':
                 for (i = 0; i < piece.Length; i++)
                 {
-                    if (tmp[piece[i].v2, piece[i].v1] == true)
+                    if (tmp[piece[i].x, piece[i].y] == true)
                         return false;
                 }
                 break;

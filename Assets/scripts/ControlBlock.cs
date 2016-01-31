@@ -42,11 +42,11 @@ public class ControlBlock {
             if (horaire)
             {
                 orientation = (orientation + 1) % 4;
-                model.modifRotation = 1;
+                model.modifRotation = sens;
             }
             else {
-                orientation = (orientation - 1) % 4;
-                model.modifRotation = -1;
+                orientation = (orientation + 3) % 4;
+                model.modifRotation = sens;
             }
             notify(j);
         }
@@ -67,12 +67,82 @@ public class ControlBlock {
         return (!espaceDispo(x, y, 0, j));
     }
 
+    public Point[] getListeBlocks()
+    {
+        Point[] res = new Point[3];
+        int tmp_o = orientation;
+        if ((currentBlock.name.Equals(model.tripleBlock1.name + "(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
+        {
+            switch ((tmp_o) % 4)
+            {
+                case 0:
+                case 2:
+                    res[0] = new Point(y + 1, x);
+                    res[1] = new Point(y - 1, x);
+                    res[2] = new Point(y, x);
+                    break;
+                case 1:
+                case 3:
+                    res[0] = new Point(y, x + 1);
+                    res[1] = new Point(y, x - 1);
+                    res[2] = new Point(y, x);
+                    break;
+            }
+        }
+        else if (currentBlock.name.Equals(model.doubleBlock.name + "(Clone)"))
+        {
+            switch ((tmp_o) % 4)
+            {
+                case 0:
+                    res[0] = new Point(y + 1, x);
+                    res[1] = new Point(y, x);
+                    Array.Resize(ref res, 2);
+                    break;
+                case 1:
+                    res[0] = new Point(y, x + 1);
+                    res[1] = new Point(y, x);
+                    Array.Resize(ref res, 2);
+                    break;
+                case 2:
+                    res[0] = new Point(y - 1, x);
+                    res[1] = new Point(y, x);
+                    Array.Resize(ref res, 2);
+                    break;
+                case 3:
+                    res[0] = new Point(y, x - 1);
+                    res[1] = new Point(y, x);
+                    Array.Resize(ref res, 2);
+                    break;
+            }
+        }
+        if (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)"))
+        {
+            switch (orientation)
+            {
+                case 0:
+                case 1:
+                    res[0].colored = true;
+                    break;
+                case 2:
+                case 3:
+                    res[1].colored = true;
+                    break;
+            }
+        }
+        else
+        {
+            res[1].colored = true;
+        }
+        return res;
+    }
+
     public bool espaceDispo(int dx, int dy, int sens, int j)
     {
+        int tmp_o = orientation;
         Point[] res = new Point[3];
         if ((currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
         {
-            switch ((orientation + sens)%4)
+            switch ((tmp_o + sens)%4)
             {
                 case 0:
                 case 2:
@@ -90,7 +160,7 @@ public class ControlBlock {
         }
         else if (currentBlock.name.Equals(model.doubleBlock.name + "(Clone)"))
         {
-            switch ((orientation + sens)%4)
+            switch ((tmp_o + sens)%4)
             {
                 case 0:
                     res[0] = new Point(y+1, x);
@@ -98,7 +168,7 @@ public class ControlBlock {
                     Array.Resize(ref res, 2);
                     break;
                 case 1:
-                    res[0] = new Point(y, x-1);
+                    res[0] = new Point(y, x+1);
                     res[1] = new Point(y, x  );
                     Array.Resize(ref res, 2);
                     break;
@@ -108,7 +178,7 @@ public class ControlBlock {
                     Array.Resize(ref res, 2);
                     break;
                 case 3:
-                    res[0] = new Point(y, x+1);
+                    res[0] = new Point(y, x-1);
                     res[1] = new Point(y, x  );
                     Array.Resize(ref res, 2);
                     break;
@@ -124,7 +194,57 @@ public class ControlBlock {
         }
         else if (dy > 0)
         {
-            return model.dep(res, 'b', j);
+            bool tmp = model.dep(res, 'b', j);
+            if (!tmp)
+            {
+                Point[] stucked = getListeBlocks();
+                if(j == 1)
+                {
+                    foreach (Point p in res)
+                    {
+                        if(!model.symbolej1[p.y, p.x] && !p.colored)
+                        {
+                            //Destruction
+                            GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j1");
+                            foreach(GameObject go in toBreak)
+                            {
+                                GameObject.Destroy(go);
+                            }
+                        }
+
+                        if(!model.symbolej1[p.y, p.x] && p.colored)
+                        {
+                            model.symbolej1[p.y, p.x] = true;
+                        }
+
+                        model.blocksFixesj1[p.x, p.y] = true;
+                    }
+                    
+                }
+                else
+                {
+                    foreach (Point p in res)
+                    {
+                        if (!model.symbolej2[p.y, p.x] && !p.colored)
+                        {
+                            //Destruction
+                            GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j2");
+                            foreach (GameObject go in toBreak)
+                            {
+                                GameObject.Destroy(go);
+                            }
+                        }
+
+                        if (!model.symbolej2[p.y, p.x] && p.colored)
+                        {
+                            model.symbolej2[p.y, p.x] = true;
+                        }
+
+                        model.blocksFixesj2[p.x, p.y] = true;
+                    }
+                }
+            }
+            return tmp;
         }
         else if (sens != 0)
         {

@@ -42,8 +42,8 @@ public class controleurJ2 : MonoBehaviour {
             pieceCourante.orient(false, 2);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightControl))
-            speedDelay = 15;
+        if (Input.GetKey("m"))
+            speedDelay = 5;
         else
             speedDelay = 60;
     }

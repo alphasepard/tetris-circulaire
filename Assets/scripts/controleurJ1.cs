@@ -43,7 +43,7 @@ public class controleurJ1 : MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.Space))
-            speedDelay = 15;
+            speedDelay = 5;
         else
             speedDelay = 60;
     }
