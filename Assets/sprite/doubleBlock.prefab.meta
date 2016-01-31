@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Resources/doubleBlock.prefab.meta
+guid: 06524ecae3ef31946b2631485aa75ce0
+timeCreated: 1454200879
+=======
 guid: 8b5e48960e9a7ef4db9657a44b0ac143
-timeCreated: 1454197412
+timeCreated: 1454201237
+>>>>>>> c531d0e583454756a8441c45897c196f8f7f3970:Assets/sprite/doubleBlock.prefab.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 
