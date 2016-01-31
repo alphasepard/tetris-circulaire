@@ -202,7 +202,7 @@ public class Model : MonoBehaviour {
 
         /*if (cb.currentBlock.name.Equals(doubleBlock.name))
         {*/
-            newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
+            newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);   
 
         /*}*/
         /*else if(cb.currentBlock.name.Equals(tripleBlock1.name))
