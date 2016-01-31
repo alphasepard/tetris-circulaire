@@ -10,12 +10,13 @@ public class Model : MonoBehaviour {
     public controleurJ1 j1;
     public controleurJ2 j2;
     public GameObject doubleBlock;
-    public GameObject tripleBlock1;
-    public GameObject tripleBlock2;
-    public float moveUnit = 0.75f;
-    public float j1x0 = -11.84f;
-    public float y0 = 3.64f;
-    public float j2x0 = 1.09f;
+    /*public GameObject tripleBlock1;
+    public GameObject tripleBlock2;*/
+    public float moveUnit = 0.748f;
+    
+    public float j1x0 = -12.8f;
+    public float y0 = 3.98f;
+    public float j2x0 = 0.15f;
     public int modifRotation = 0;
     public bool[,] blocksFixesj1;
     public bool[,] blocksFixesj2;
@@ -31,6 +32,7 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Debug.Log(moveUnit);
         poolBlock = new ControlBlock[10];
 
         for (int i = 0; i < 10; i++)
@@ -190,27 +192,27 @@ public class Model : MonoBehaviour {
         if (joueur == 1)
         {
             x = j1x0 + 6 * moveUnit;
+            
             y = y0;
         }
         else if (joueur == 2) {
-            x = j2x0 + 6 * moveUnit;
+            x = j2x0 + 2 * moveUnit;
             y = y0;
         }
 
-        if (cb.currentBlock.name.Equals(doubleBlock.name))
-        {
+        /*if (cb.currentBlock.name.Equals(doubleBlock.name))
+        {*/
             newPiece = (GameObject)GameObject.Instantiate(doubleBlock, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
 
-
-        }
-        else if(cb.currentBlock.name.Equals(tripleBlock1.name))
+        /*}*/
+        /*else if(cb.currentBlock.name.Equals(tripleBlock1.name))
         {
             newPiece = (GameObject)GameObject.Instantiate(tripleBlock1, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
         }
         else
         {
             newPiece = (GameObject)GameObject.Instantiate(tripleBlock2, new Vector3(x, y, 0), cb.currentBlock.transform.rotation);
-        }
+        }*/
         newPiece.transform.Rotate(0, 0, cb.orientation * 90);
         newControlBlock = new ControlBlock(this);
         newControlBlock.currentBlock = newPiece;
@@ -234,6 +236,7 @@ public class Model : MonoBehaviour {
             x = j1.pieceCourante.x;
             y = j1.pieceCourante.y;
             o = j1.pieceCourante.orientation;
+            Debug.Log(moveUnit);
             j1.pieceCourante.currentBlock.transform.position = new Vector3(j1x0 + x * moveUnit, y0 - y * moveUnit, 0);
             j1.pieceCourante.currentBlock.transform.Rotate(0, 0, modifRotation * 90);
         }

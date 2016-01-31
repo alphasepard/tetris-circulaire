@@ -18,18 +18,18 @@ public class ControlBlock {
         orientation = rnd.Next(4);
         int randomType = rnd.Next(1, 4);
         //Debug.Log(randomType);
-        switch (randomType)
+        /*switch (randomType)
         {
-            case 1:
+            case 1:*/
                 currentBlock = model.doubleBlock;
-                break;
+                /*break;
             case 2:
                 currentBlock = model.tripleBlock1;
                 break;
             case 3:
                 currentBlock = model.tripleBlock2;
                 break;
-        }
+        }*/
         this.x = 6;
         this.y = 0;
     }
