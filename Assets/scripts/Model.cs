@@ -231,7 +231,6 @@ public class Model : MonoBehaviour {
         {
             poolBlock[i] = new ControlBlock(this);
 
-            poolBlock[i].model = this;
         }
 
         
@@ -275,7 +274,22 @@ public class Model : MonoBehaviour {
         j1.pieceCourante.clearSide(1);
         soundCompleted.GetComponent<AudioSource>().Play();
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
-        sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1 - 1];
+        switch (cmpRJ1)
+        {
+            case 1:
+                sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1 - 1];
+                break;
+            case 2:
+                sideRune2j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1 - 1];
+                break;
+            case 3:
+                sideRune3j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1 - 1];
+                break;
+            case 4:
+                sideRune4j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1 - 1];
+                break;
+
+        }
         switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
         {
             case "RuneTerre1":
@@ -297,7 +311,22 @@ public class Model : MonoBehaviour {
         j2.pieceCourante.clearSide(2);
         soundCompleted.GetComponent<AudioSource>().Play();
         runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
-        sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
+        switch (cmpRJ2)
+        {
+            case 1:
+                sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
+                break;
+            case 2:
+                sideRune2j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
+                break;
+            case 3:
+                sideRune3j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
+                break;
+            case 4:
+                sideRune4j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
+                break;
+
+        }
         switch (runej2.GetComponent<SpriteRenderer>().sprite.name)
         {
             case "RuneTerre1":
