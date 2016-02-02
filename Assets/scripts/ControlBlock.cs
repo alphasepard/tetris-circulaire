@@ -37,7 +37,7 @@ public class ControlBlock {
     {
         int sens = 0;
         if (horaire) sens = 1;
-        else sens = -1;
+        else sens = 3;
         if (espaceDispo(0, 0, sens, j)){
             if (horaire)
             {
@@ -67,80 +67,9 @@ public class ControlBlock {
         return (!espaceDispo(x, y, 0, j));
     }
 
-    public Point[] getListeBlocks()
-    {
-        Point[] res = new Point[3];
-        int tmp_o = orientation;
-        if ((currentBlock.name.Equals(model.tripleBlock1.name + "(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
-        {
-            switch ((tmp_o) % 4)
-            {
-                case 0:
-                case 2:
-                    res[0] = new Point(y + 1, x);
-                    res[1] = new Point(y - 1, x);
-                    res[2] = new Point(y, x);
-                    break;
-                case 1:
-                case 3:
-                    res[0] = new Point(y, x + 1);
-                    res[1] = new Point(y, x - 1);
-                    res[2] = new Point(y, x);
-                    break;
-            }
-        }
-        else if (currentBlock.name.Equals(model.doubleBlock.name + "(Clone)"))
-        {
-            switch ((tmp_o) % 4)
-            {
-                case 0:
-                    res[0] = new Point(y + 1, x);
-                    res[1] = new Point(y, x);
-                    Array.Resize(ref res, 2);
-                    break;
-                case 1:
-                    res[0] = new Point(y, x + 1);
-                    res[1] = new Point(y, x);
-                    Array.Resize(ref res, 2);
-                    break;
-                case 2:
-                    res[0] = new Point(y - 1, x);
-                    res[1] = new Point(y, x);
-                    Array.Resize(ref res, 2);
-                    break;
-                case 3:
-                    res[0] = new Point(y, x - 1);
-                    res[1] = new Point(y, x);
-                    Array.Resize(ref res, 2);
-                    break;
-            }
-        }
-        if (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)"))
-        {
-            switch (orientation)
-            {
-                case 0:
-                case 1:
-                    res[0].colored = true;
-                    break;
-                case 2:
-                case 3:
-                    res[1].colored = true;
-                    break;
-            }
-        }
-        else
-        {
-            res[1].colored = true;
-        }
-        return res;
-    }
-
     public bool espaceDispo(int dx, int dy, int sens, int j)
     {
         int tmp_o = orientation;
-        if (sens == -1)
-            sens = 3;
         Point[] res = new Point[3];
         if ((currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
         {
@@ -186,6 +115,28 @@ public class ControlBlock {
                     break;
             }
         }
+        if (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)"))
+        {
+            switch (orientation)
+            {
+                case 0:
+                case 1:
+                    res[0].colored = true;
+                    break;
+                case 2:
+                case 3:
+                    res[1].colored = true;
+                    break;
+            }
+        }
+        else if (currentBlock.name.Equals(model.tripleBlock1.name + "(Clone)"))
+        {
+            res[2].colored = true;
+        }
+        else if (currentBlock.name.Equals(model.doubleBlock.name + "(Clone)"))
+        {
+            res[1].colored = true;
+        }
         if (dx > 0)
         {
             return model.dep(res, 'd', j);
@@ -199,52 +150,49 @@ public class ControlBlock {
             bool tmp = model.dep(res, 'b', j);
             if (!tmp)
             {
-                Point[] stucked = getListeBlocks();
-                if(j == 1)
+                if (j == 1)
                 {
-                    foreach (Point stuck in stucked)
+                    foreach (Point stuck in res)
                     {
-                        Debug.Log("Coordonnées : " + stuck.x + ";" + stuck.y + " /// bool matrice : " + model.symbolej1[stuck.x, stuck.y] + " /// Couleur de l'ajout : " + stuck.colored);
-                        //Debug.Log(stuck.colored);
-                        if (!model.symbolej1[stuck.x, stuck.y] && !stuck.colored)
+                        if (!(model.symbolej1[stuck.x, stuck.y]) & !(stuck.colored))
                         {
-                            //Destruction
-                            GameObject[] toBreak1 = GameObject.FindGameObjectsWithTag("j1");
-                            foreach(GameObject go in toBreak1)
-                            {
-                                //GameObject.Destroy(go);
-                            }
+                            clearSide(j);
+                            model.redoSymbole(j);
+                            return false;
                         }
-
-                        if(!model.symbolej1[stuck.x, stuck.y] && stuck.colored)
+                        else if (!(model.symbolej1[stuck.x, stuck.y]) & stuck.colored)
                         {
                             model.symbolej1[stuck.x, stuck.y] = true;
+                            model.soundMatch.GetComponent<AudioSource>().Play();
+                            model.blocksFixesj1[stuck.x, stuck.y] = true;
                         }
-
-                        model.blocksFixesj1[stuck.x, stuck.y] = true;
+                        else
+                        {
+                            model.blocksFixesj1[stuck.x, stuck.y] = true;
+                        }
                     }
                     
                 }
                 else
                 {
-                    foreach (Point stuck in stucked)
+                    foreach (Point stuck in res)
                     {
-                        if (!model.symbolej2[stuck.x, stuck.y] && !stuck.colored)
+                        if (!(model.symbolej2[stuck.x, stuck.y]) & !(stuck.colored))
                         {
-                            //Destruction
-                            GameObject[] toBreak2 = GameObject.FindGameObjectsWithTag("j2");
-                            foreach (GameObject go in toBreak2)
-                            {
-                              // GameObject.Destroy(go);
-                            }
+                            clearSide(j);
+                            model.redoSymbole(j);
+                            return false;
                         }
-
-                        if (!model.symbolej2[stuck.x, stuck.y] && stuck.colored)
+                        else if (!(model.symbolej2[stuck.x, stuck.y]) & stuck.colored)
                         {
                             model.symbolej2[stuck.x, stuck.y] = true;
+                            model.soundMatch.GetComponent<AudioSource>().Play();
+                            model.blocksFixesj2[stuck.x, stuck.y] = true;
                         }
-
-                        model.blocksFixesj2[stuck.x, stuck.y] = true;
+                        else
+                        {
+                            model.blocksFixesj2[stuck.x, stuck.y] = true;
+                        }
                     }
                 }
             }
@@ -257,4 +205,28 @@ public class ControlBlock {
         else return true;
     }
 
+    public void clearSide(int j) {
+        for (int i = 0; i < 12; i++)
+        {
+            for (int k = 0; k < 16; k++)
+            {
+                if (j == 1)
+                    model.blocksFixesj1[i, k] = false;
+                else
+                    model.blocksFixesj2[i, k] = false;
+            }
+        }
+        GameObject[] toBreak = GameObject.FindGameObjectsWithTag("j" + j);
+        foreach (GameObject go in toBreak)
+        {
+            go.transform.tag = "dead";
+        }
+        GameObject[] kill = GameObject.FindGameObjectsWithTag("dead");
+        foreach (GameObject dead in kill)
+        {
+            dead.AddComponent<Rigidbody2D>();
+            dead.GetComponent<Rigidbody2D>().gravityScale = 5;
+            GameObject.Destroy(dead, 5.0f);
+        }
+    }
 }

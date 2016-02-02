@@ -3,9 +3,6 @@ using System.Collections;
 
 public class Model : MonoBehaviour {
 
-    public int nbLine = 14;
-    public int nbColone = 10;
-    public float moveSpeed = 0.4f;
     public controleurJ1 j1;
     public controleurJ2 j2;
     public GameObject doubleBlock;
@@ -45,8 +42,14 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        ost.GetComponent<AudioSource>().Play();
 
+        symbolej1 = new bool[12, 16];
+        symbolej2 = new bool[12, 16];
+
+        blocksFixesj1 = new bool[12, 16];
+        blocksFixesj2 = new bool[12, 16];
+
+        ost.GetComponent<AudioSource>().Play();
 
         runej1.AddComponent<SpriteRenderer>();
         runej2.AddComponent<SpriteRenderer>();
@@ -204,24 +207,23 @@ public class Model : MonoBehaviour {
 
         switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
         {
-            case "RuneTerre":
+            case "RuneTerre1":
                 genereSymbole(3, 1);
                 genereSymbole(3, 2);
                 break;
-            case "RuneEau":
+            case "RuneEau1":
                 genereSymbole(1, 1);
                 genereSymbole(1, 2);
                 break;
-            case "RuneFeu":
+            case "RuneFeu1":
                 genereSymbole(2, 1);
                 genereSymbole(2, 2);
                 break;
-            case "RuneNuit":
+            case "RuneNuit1":
                 genereSymbole(4, 1);
                 genereSymbole(4, 2);
                 break;
         }
-
 
         poolBlock = new ControlBlock[5012];
 
@@ -232,10 +234,7 @@ public class Model : MonoBehaviour {
             poolBlock[i].model = this;
         }
 
-        blocksFixesj1 = new bool[12,16];
-        blocksFixesj2 = new bool[12,16];
-        symbolej1 = new bool[12, 16];
-        symbolej2 = new bool[12, 16];
+        
 
         for (int i = 0; i < 12; i++)
             for (int j = 0; j < 16; j++)
@@ -273,44 +272,86 @@ public class Model : MonoBehaviour {
 
     public void passerRuneJ1()
     {
+        j1.pieceCourante.clearSide(1);
         soundCompleted.GetComponent<AudioSource>().Play();
         runej1.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ1];
-        sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1-1];
+        sideRune1j1.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ1[cmpRJ1 - 1];
         switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
         {
-            case "RuneTerre":
+            case "RuneTerre1":
                 genereSymbole(3, 1);
                 break;
-            case "RuneEau":
+            case "RuneEau1":
                 genereSymbole(1, 1);
                 break;
-            case "RuneFeu":
+            case "RuneFeu1":
                 genereSymbole(2, 1);
                 break;
-            case "RuneNuit":
+            case "RuneNuit1":
                 genereSymbole(4, 1);
                 break;
         }
     }
     public void passerRuneJ2()
     {
+        j2.pieceCourante.clearSide(2);
         soundCompleted.GetComponent<AudioSource>().Play();
         runej2.GetComponent<SpriteRenderer>().sprite = runesTab[cmpRJ2];
         sideRune1j2.GetComponent<SpriteRenderer>().sprite = sideRunesVTabJ2[cmpRJ2 - 1];
         switch (runej2.GetComponent<SpriteRenderer>().sprite.name)
         {
-            case "RuneTerre":
+            case "RuneTerre1":
                 genereSymbole(3, 2);
                 break;
-            case "RuneEau":
+            case "RuneEau1":
                 genereSymbole(1, 2);
                 break;
-            case "RuneFeu":
+            case "RuneFeu1":
                 genereSymbole(2, 2);
                 break;
-            case "RuneNuit":
+            case "RuneNuit1":
                 genereSymbole(4, 2);
                 break;
+        }
+    }
+
+    public void redoSymbole(int j)
+    {
+        if (j == 1)
+        {
+            switch (runej1.GetComponent<SpriteRenderer>().sprite.name)
+            {
+                case "RuneTerre1":
+                    genereSymbole(3, 1);
+                    break;
+                case "RuneEau1":
+                    genereSymbole(1, 1);
+                    break;
+                case "RuneFeu1":
+                    genereSymbole(2, 1);
+                    break;
+                case "RuneNuit1":
+                    genereSymbole(4, 1);
+                    break;
+            }
+        }
+        else
+        {
+            switch (runej2.GetComponent<SpriteRenderer>().sprite.name)
+            {
+                case "RuneTerre1":
+                    genereSymbole(3, 2);
+                    break;
+                case "RuneEau1":
+                    genereSymbole(1, 2);
+                    break;
+                case "RuneFeu1":
+                    genereSymbole(2, 2);
+                    break;
+                case "RuneNuit1":
+                    genereSymbole(4, 2);
+                    break;
+            }
         }
     }
 
@@ -443,11 +484,11 @@ public class Model : MonoBehaviour {
         }
         if(joueur == 1)
         {
-            symbolej1 = symbole;
+            symbolej1 = (bool[,]) symbole.Clone();
         }
         else
         {
-            symbolej2 = symbole;
+            symbolej2 = (bool[,])symbole.Clone();
         }
     }
 
@@ -463,18 +504,17 @@ public class Model : MonoBehaviour {
 
     void spawnPiece(ControlBlock cb, int joueur)
     {
-        float x = 0.0f, y = 0.0f;
+        float x, y;
+        x = 0.0f;
+        y = y0;
         GameObject newPiece;
         ControlBlock newControlBlock;
         if (joueur == 1)
         {
             x = j1x0 + 6 * moveUnit;
-            
-            y = y0;
         }
         else if (joueur == 2) {
             x = j2x0 + 6 * moveUnit;
-            y = y0;
         }
 
         if (cb.currentBlock.name.Equals(doubleBlock.name))
@@ -497,12 +537,10 @@ public class Model : MonoBehaviour {
         if (joueur == 1)
         {
             j1.pieceCourante = newControlBlock;
-            j1.pieceCourante.model = this;
         }
         else
         {
             j2.pieceCourante = newControlBlock;
-            j2.pieceCourante.model = this;
         }
     }
 
@@ -626,7 +664,7 @@ public class Model : MonoBehaviour {
                 {
                     try
                     {
-                        if (piece[i].y == 14)
+                        if (piece[i].y == 15)
                             return false;
                         if (tmp[piece[i].x, piece[i].y + 1] == true)
                             return false;
