@@ -38,10 +38,6 @@ public class Model : MonoBehaviour {
     public GameObject empty3;
     public GameObject empty2;
 
-    int interval = 1;
-    float nextTime = 0;
-    
-
     // Use this for initialization
     void Start()
     {
