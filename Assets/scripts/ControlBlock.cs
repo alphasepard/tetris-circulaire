@@ -69,6 +69,7 @@ public class ControlBlock {
 
     public bool espaceDispo(int dx, int dy, int sens, int j)
     {
+        bool found = false;
         int tmp_o = orientation;
         Point[] res = new Point[3];
         if ((currentBlock.name.Equals(model.tripleBlock1.name+"(Clone)")) || (currentBlock.name.Equals(model.tripleBlock2.name + "(Clone)")))
@@ -165,6 +166,7 @@ public class ControlBlock {
                             model.symbolej1[stuck.x, stuck.y] = true;
                             model.soundMatch.GetComponent<AudioSource>().Play();
                             model.blocksFixesj1[stuck.x, stuck.y] = true;
+                            found = true;
                         }
                         else
                         {
@@ -188,6 +190,7 @@ public class ControlBlock {
                             model.symbolej2[stuck.x, stuck.y] = true;
                             model.soundMatch.GetComponent<AudioSource>().Play();
                             model.blocksFixesj2[stuck.x, stuck.y] = true;
+                            found = true;
                         }
                         else
                         {
@@ -195,6 +198,8 @@ public class ControlBlock {
                         }
                     }
                 }
+                if (!found)
+                    currentBlock.GetComponent<SpriteRenderer>().sprite = (res.Length == 2) ? model.empty2.GetComponent<SpriteRenderer>().sprite : model.empty3.GetComponent<SpriteRenderer>().sprite;
             }
             return tmp;
         }

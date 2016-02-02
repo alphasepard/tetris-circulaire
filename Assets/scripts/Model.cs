@@ -35,6 +35,9 @@ public class Model : MonoBehaviour {
     public Sprite[] sideRunesTabJ2;
     public Sprite[] sideRunesVTabJ2;
 
+    public GameObject empty3;
+    public GameObject empty2;
+
     int interval = 1;
     float nextTime = 0;
     
