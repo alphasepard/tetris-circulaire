@@ -20,7 +20,7 @@ public class Model : MonoBehaviour {
 
     private ControlBlock[] poolBlock;
 
-    public GameObject soundWin, soundMatch, soundCompleted, ost;
+    public GameObject soundWin, soundMatch, soundCompleted, ost, clear;
     public GameObject runej1, runej2;
     public GameObject sideRune1j1, sideRune2j1, sideRune3j1, sideRune4j1;
     public GameObject sideRune1j2, sideRune2j2, sideRune3j2, sideRune4j2;
@@ -340,6 +340,18 @@ public class Model : MonoBehaviour {
             case "RuneNuit1":
                 genereSymbole(4, 2);
                 break;
+        }
+    }
+
+    public bool enHaut(int j)
+    {
+        if (j == 1)
+        {
+            return blocksFixesj1[6,0];
+        }
+        else
+        {
+            return blocksFixesj2[6, 0];
         }
     }
 

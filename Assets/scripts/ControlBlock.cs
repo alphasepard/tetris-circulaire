@@ -155,7 +155,13 @@ public class ControlBlock {
                 {
                     foreach (Point stuck in res)
                     {
-                        if (!(model.symbolej1[stuck.x, stuck.y]) & !(stuck.colored))
+                        if (model.enHaut(j))
+                        {
+                            clearSide(j);
+                            model.redoSymbole(j);
+                            return false;
+                        }
+                        else if (!(model.symbolej1[stuck.x, stuck.y]) & !(stuck.colored))
                         {
                             clearSide(j);
                             model.redoSymbole(j);
@@ -179,7 +185,13 @@ public class ControlBlock {
                 {
                     foreach (Point stuck in res)
                     {
-                        if (!(model.symbolej2[stuck.x, stuck.y]) & !(stuck.colored))
+                        if (model.enHaut(j))
+                        {
+                            clearSide(j);
+                            model.redoSymbole(j);
+                            return false;
+                        }
+                        else if (!(model.symbolej2[stuck.x, stuck.y]) & !(stuck.colored))
                         {
                             clearSide(j);
                             model.redoSymbole(j);
@@ -211,6 +223,7 @@ public class ControlBlock {
     }
 
     public void clearSide(int j) {
+        model.clear.GetComponent<AudioSource>().Play();
         for (int i = 0; i < 12; i++)
         {
             for (int k = 0; k < 16; k++)
